@@ -54,6 +54,8 @@ void CShowThread::run()
             continue;
         }
 
+        cvtColor(mat, mat, CV_BGR2GRAY);
+
         SendMat(mat);
         msleep(40);
 

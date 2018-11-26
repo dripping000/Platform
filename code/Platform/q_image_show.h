@@ -17,7 +17,10 @@ public:
     ~QImageShow();
 
 private:
+    QImage::Format c_ImgFormat;
+    int c_nPixelSize;
     QImage c_qImage;
+
 
 //Ë½ÓÐº¯Êý
 void paintEvent(QPaintEvent *pqPaintEvent);

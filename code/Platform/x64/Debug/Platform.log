@@ -1,47 +1,9 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
-  Moc'ing MainForm.h...
-  Moc'ing c_show_thread.h...
-  Moc'ing q_image_show.h...
-  Rcc'ing MainWindow.qrc...
-  RCC: Warning: No resources in 'C:\Users\Kun\Desktop\Git\Platform\code\Platform\MainWindow.qrc'.
-  Uic'ing MainWindow.ui...
-  c_show_thread.cpp
-  main.cpp
-  MainForm.cpp
   q_image_show.cpp
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/mat.hpp(2586): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 c_show_thread.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/persistence.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 c_show_thread.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 c_show_thread.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 c_show_thread.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/imgproc.hpp(592): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 c_show_thread.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/mat.hpp(2586): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 q_image_show.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/persistence.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 q_image_show.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 q_image_show.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 q_image_show.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/mat.hpp(2586): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 main.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/imgproc.hpp(592): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 q_image_show.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/mat.hpp(2586): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 MainForm.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/persistence.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 main.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/persistence.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 MainForm.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 main.cpp)
-  moc_MainForm.cpp
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 main.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 MainForm.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 MainForm.cpp)
-  moc_c_show_thread.cpp
-  moc_q_image_show.cpp
-  qrc_MainWindow.cpp
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/mat.hpp(2586): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_c_show_thread.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/persistence.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_c_show_thread.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_c_show_thread.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_c_show_thread.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/mat.hpp(2586): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_MainForm.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/persistence.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_MainForm.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_MainForm.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_MainForm.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/mat.hpp(2586): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_q_image_show.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/persistence.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_q_image_show.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_q_image_show.cpp)
-C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_q_image_show.cpp)
+C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/mat.hpp(2586): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/persistence.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+C:\Users\Kun\Desktop\Git\Platform\code\include\opencv2/imgproc.hpp(592): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
   Platform.vcxproj -> C:\Users\Kun\Desktop\Git\Platform\code\Platform\..\..\bin\Platform.exe
   Platform.vcxproj -> ..\..\bin\Platform.pdb (Full PDB)
