@@ -13,11 +13,15 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
@@ -40,6 +44,16 @@ public:
     QSpacerItem *horizontalSpacer;
     QPushButton *Open;
     QSpacerItem *horizontalSpacer_2;
+    QGridLayout *gridLayout;
+    QLabel *label;
+    QSlider *nCut_hs;
+    QLineEdit *nCut_le;
+    QLabel *label_2;
+    QSlider *nBarrel_ParaL_hs;
+    QLineEdit *nBarrel_ParaL_le;
+    QLabel *label_3;
+    QSlider *nBarrel_ParaS_hs;
+    QLineEdit *nBarrel_ParaS_le;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -95,10 +109,79 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
+        gridLayout = new QGridLayout();
+        gridLayout->setSpacing(6);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+
+        gridLayout->addWidget(label, 0, 0, 1, 1);
+
+        nCut_hs = new QSlider(centralWidget);
+        nCut_hs->setObjectName(QStringLiteral("nCut_hs"));
+        nCut_hs->setMaximum(100);
+        nCut_hs->setOrientation(Qt::Horizontal);
+
+        gridLayout->addWidget(nCut_hs, 0, 1, 1, 1);
+
+        nCut_le = new QLineEdit(centralWidget);
+        nCut_le->setObjectName(QStringLiteral("nCut_le"));
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(nCut_le->sizePolicy().hasHeightForWidth());
+        nCut_le->setSizePolicy(sizePolicy);
+        nCut_le->setReadOnly(false);
+
+        gridLayout->addWidget(nCut_le, 0, 2, 1, 1);
+
+        label_2 = new QLabel(centralWidget);
+        label_2->setObjectName(QStringLiteral("label_2"));
+
+        gridLayout->addWidget(label_2, 1, 0, 1, 1);
+
+        nBarrel_ParaL_hs = new QSlider(centralWidget);
+        nBarrel_ParaL_hs->setObjectName(QStringLiteral("nBarrel_ParaL_hs"));
+        nBarrel_ParaL_hs->setMaximum(800);
+        nBarrel_ParaL_hs->setOrientation(Qt::Horizontal);
+
+        gridLayout->addWidget(nBarrel_ParaL_hs, 1, 1, 1, 1);
+
+        nBarrel_ParaL_le = new QLineEdit(centralWidget);
+        nBarrel_ParaL_le->setObjectName(QStringLiteral("nBarrel_ParaL_le"));
+        sizePolicy.setHeightForWidth(nBarrel_ParaL_le->sizePolicy().hasHeightForWidth());
+        nBarrel_ParaL_le->setSizePolicy(sizePolicy);
+        nBarrel_ParaL_le->setReadOnly(false);
+
+        gridLayout->addWidget(nBarrel_ParaL_le, 1, 2, 1, 1);
+
+        label_3 = new QLabel(centralWidget);
+        label_3->setObjectName(QStringLiteral("label_3"));
+
+        gridLayout->addWidget(label_3, 2, 0, 1, 1);
+
+        nBarrel_ParaS_hs = new QSlider(centralWidget);
+        nBarrel_ParaS_hs->setObjectName(QStringLiteral("nBarrel_ParaS_hs"));
+        nBarrel_ParaS_hs->setMaximum(800);
+        nBarrel_ParaS_hs->setOrientation(Qt::Horizontal);
+
+        gridLayout->addWidget(nBarrel_ParaS_hs, 2, 1, 1, 1);
+
+        nBarrel_ParaS_le = new QLineEdit(centralWidget);
+        nBarrel_ParaS_le->setObjectName(QStringLiteral("nBarrel_ParaS_le"));
+        sizePolicy.setHeightForWidth(nBarrel_ParaS_le->sizePolicy().hasHeightForWidth());
+        nBarrel_ParaS_le->setSizePolicy(sizePolicy);
+        nBarrel_ParaS_le->setReadOnly(false);
+
+        gridLayout->addWidget(nBarrel_ParaS_le, 2, 2, 1, 1);
+
+
+        verticalLayout->addLayout(gridLayout);
+
         MainWindowClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindowClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 697, 30));
+        menuBar->setGeometry(QRect(0, 0, 697, 23));
         MainWindowClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindowClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -109,6 +192,9 @@ public:
 
         retranslateUi(MainWindowClass);
         QObject::connect(Open, SIGNAL(clicked()), MainWindowClass, SLOT(Open()));
+        QObject::connect(nCut_hs, SIGNAL(sliderReleased()), MainWindowClass, SLOT(ValueChanged()));
+        QObject::connect(nBarrel_ParaL_hs, SIGNAL(sliderReleased()), MainWindowClass, SLOT(ValueChanged()));
+        QObject::connect(nBarrel_ParaS_hs, SIGNAL(sliderReleased()), MainWindowClass, SLOT(ValueChanged()));
 
         QMetaObject::connectSlotsByName(MainWindowClass);
     } // setupUi
@@ -117,6 +203,9 @@ public:
     {
         MainWindowClass->setWindowTitle(QApplication::translate("MainWindowClass", "MainWindow", Q_NULLPTR));
         Open->setText(QApplication::translate("MainWindowClass", "Open", Q_NULLPTR));
+        label->setText(QApplication::translate("MainWindowClass", "input_cut:", Q_NULLPTR));
+        label_2->setText(QApplication::translate("MainWindowClass", "barrel...aL:", Q_NULLPTR));
+        label_3->setText(QApplication::translate("MainWindowClass", "barrel...aS:", Q_NULLPTR));
     } // retranslateUi
 
 };

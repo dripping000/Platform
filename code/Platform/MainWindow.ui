@@ -98,6 +98,100 @@
       </item>
      </layout>
     </item>
+    <item>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>input_cut:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QSlider" name="nCut_hs">
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLineEdit" name="nCut_le">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="readOnly">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>barrel...aL:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QSlider" name="nBarrel_ParaL_hs">
+        <property name="maximum">
+         <number>800</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLineEdit" name="nBarrel_ParaL_le">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="readOnly">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>barrel...aS:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QSlider" name="nBarrel_ParaS_hs">
+        <property name="maximum">
+         <number>800</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLineEdit" name="nBarrel_ParaS_le">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="readOnly">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -106,7 +200,7 @@
      <x>0</x>
      <y>0</y>
      <width>697</width>
-     <height>30</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>
@@ -139,17 +233,66 @@
    <slot>Open()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>347</x>
-     <y>628</y>
+     <x>385</x>
+     <y>588</y>
     </hint>
     <hint type="destinationlabel">
-     <x>323</x>
-     <y>678</y>
+     <x>485</x>
+     <y>577</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>nCut_hs</sender>
+   <signal>sliderReleased()</signal>
+   <receiver>MainWindowClass</receiver>
+   <slot>ValueChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>141</x>
+     <y>643</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>72</x>
+     <y>601</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>nBarrel_ParaL_hs</sender>
+   <signal>sliderReleased()</signal>
+   <receiver>MainWindowClass</receiver>
+   <slot>ValueChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>175</x>
+     <y>672</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>99</x>
+     <y>570</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>nBarrel_ParaS_hs</sender>
+   <signal>sliderReleased()</signal>
+   <receiver>MainWindowClass</receiver>
+   <slot>ValueChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>223</x>
+     <y>697</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>130</x>
+     <y>541</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
   <slot>Open()</slot>
+  <slot>ValueChanged()</slot>
  </slots>
 </ui>

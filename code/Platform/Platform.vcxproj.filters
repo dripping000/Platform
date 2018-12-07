@@ -42,6 +42,51 @@
     <ClCompile Include="c_show_thread.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AMHE\AMHE_run.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AMHE\hist_eq.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AMHE\hist_mean.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AMHE\img_base.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AMHE\img_hist.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AMHE\main_run.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AMHE\makeLUT.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AMHE\max.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AMHE\min.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AMHE\modified_hist.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AMHE\new_hist.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AMHE\OstuCompute.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\c_transform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DistortionCorrection\BarrelProcess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DistortionCorrection\common_func.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainForm.h">
@@ -63,5 +108,10 @@
     <QtRcc Include="MainWindow.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Utils\c_transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
