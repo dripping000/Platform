@@ -5,6 +5,8 @@
 #include <opencv2/highgui.hpp>
 using namespace cv;
 
+#include "c_barrel_correction.h"
+
 //Debug
 #include "debug_log.h"
 
@@ -53,6 +55,12 @@ void CShowThread::run()
             c_qMutex.unlock();
             continue;
         }
+
+        // ÕºœÒ¥¶¿ÌÀ„∑®
+        #if 1
+        CBarrelCorrection cBarrelCorrection;
+        mat = cBarrelCorrection.BarrelCorrection(mat);
+        #endif
 
         SendMat(mat);
         msleep(40);

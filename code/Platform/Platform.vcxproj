@@ -125,9 +125,11 @@
     <ClCompile Include="AMHE\modified_hist.c" />
     <ClCompile Include="AMHE\new_hist.c" />
     <ClCompile Include="AMHE\OstuCompute.c" />
+    <ClCompile Include="BarrelCorrection\BarrelProcess.cpp" />
+    <ClCompile Include="BarrelCorrection\common_func.cpp" />
+    <ClCompile Include="BarrelCorrection\VirtualStitch.cpp" />
+    <ClCompile Include="c_barrel_correction.cpp" />
     <ClCompile Include="c_show_thread.cpp" />
-    <ClCompile Include="DistortionCorrection\BarrelProcess.cpp" />
-    <ClCompile Include="DistortionCorrection\common_func.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="q_image_show.cpp" />
@@ -147,6 +149,8 @@
     <QtMoc Include="q_image_show.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="c_barrel_correction.h" />
+    <ClInclude Include="debug_log.h" />
     <ClInclude Include="Utils\c_transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -28,7 +28,8 @@ private:
     void Mat2Array(cv::Mat matImage, int *pArray);
 
     void HistogramEnhancemen();
-    void DistortionCorrection(int nCut_, int nBarrel_ParaL_, int nBarrel_ParaS_);
+    void BarrelCorrection(int nCut_, int nBarrel_ParaL_, int nBarrel_ParaS_);
+    void VirtualStitch();
 
 
 };

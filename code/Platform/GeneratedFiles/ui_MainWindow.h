@@ -62,7 +62,7 @@ public:
     {
         if (MainWindowClass->objectName().isEmpty())
             MainWindowClass->setObjectName(QStringLiteral("MainWindowClass"));
-        MainWindowClass->resize(697, 752);
+        MainWindowClass->resize(992, 752);
         centralWidget = new QWidget(MainWindowClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         verticalLayout = new QVBoxLayout(centralWidget);
@@ -78,8 +78,8 @@ public:
 
         ImageShow = new QImageShow(centralWidget);
         ImageShow->setObjectName(QStringLiteral("ImageShow"));
-        ImageShow->setMinimumSize(QSize(600, 480));
-        ImageShow->setMaximumSize(QSize(600, 480));
+        ImageShow->setMinimumSize(QSize(960, 540));
+        ImageShow->setMaximumSize(QSize(960, 540));
 
         horizontalLayout_2->addWidget(ImageShow);
 
@@ -181,7 +181,7 @@ public:
         MainWindowClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindowClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 697, 23));
+        menuBar->setGeometry(QRect(0, 0, 992, 23));
         MainWindowClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindowClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -203,9 +203,9 @@ public:
     {
         MainWindowClass->setWindowTitle(QApplication::translate("MainWindowClass", "MainWindow", Q_NULLPTR));
         Open->setText(QApplication::translate("MainWindowClass", "Open", Q_NULLPTR));
-        label->setText(QApplication::translate("MainWindowClass", "input_cut:", Q_NULLPTR));
-        label_2->setText(QApplication::translate("MainWindowClass", "barrel...aL:", Q_NULLPTR));
-        label_3->setText(QApplication::translate("MainWindowClass", "barrel...aS:", Q_NULLPTR));
+        label->setText(QApplication::translate("MainWindowClass", "nCut:", Q_NULLPTR));
+        label_2->setText(QApplication::translate("MainWindowClass", "nBarrelK0:", Q_NULLPTR));
+        label_3->setText(QApplication::translate("MainWindowClass", "nBarrelK1:", Q_NULLPTR));
     } // retranslateUi
 
 };

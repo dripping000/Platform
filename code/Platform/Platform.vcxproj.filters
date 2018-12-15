@@ -81,10 +81,16 @@
     <ClCompile Include="Utils\c_transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DistortionCorrection\BarrelProcess.cpp">
+    <ClCompile Include="BarrelCorrection\BarrelProcess.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DistortionCorrection\common_func.cpp">
+    <ClCompile Include="BarrelCorrection\common_func.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BarrelCorrection\VirtualStitch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="c_barrel_correction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -111,6 +117,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils\c_transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="debug_log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="c_barrel_correction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

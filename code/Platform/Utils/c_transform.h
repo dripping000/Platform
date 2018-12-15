@@ -12,7 +12,7 @@ public:
 	//公有变量
 	//公有函数
     int Mat2Array(cv::Mat matImage, BYTE *pArray);
-	cv::Mat Array2Mat(BYTE* pbyImageRgb, int nHeight, int nWeight, int nChannels);
+	cv::Mat Array2Mat(BYTE* pbyImageRgb, int nWeight, int nHeight, int nChannels);
 	//私有函数
 	//私有变量
 	cv::Mat c_matImage;
