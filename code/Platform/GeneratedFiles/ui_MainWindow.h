@@ -45,15 +45,12 @@ public:
     QPushButton *Open;
     QSpacerItem *horizontalSpacer_2;
     QGridLayout *gridLayout;
-    QLabel *label;
-    QSlider *nCut_hs;
-    QLineEdit *nCut_le;
     QLabel *label_2;
-    QSlider *nBarrel_ParaL_hs;
-    QLineEdit *nBarrel_ParaL_le;
+    QSlider *BC_nK0_hs;
+    QLineEdit *BC_nK0_le;
     QLabel *label_3;
-    QSlider *nBarrel_ParaS_hs;
-    QLineEdit *nBarrel_ParaS_le;
+    QSlider *BC_nK1_hs;
+    QLineEdit *BC_nK1_le;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -112,68 +109,48 @@ public:
         gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        label = new QLabel(centralWidget);
-        label->setObjectName(QStringLiteral("label"));
-
-        gridLayout->addWidget(label, 0, 0, 1, 1);
-
-        nCut_hs = new QSlider(centralWidget);
-        nCut_hs->setObjectName(QStringLiteral("nCut_hs"));
-        nCut_hs->setMaximum(100);
-        nCut_hs->setOrientation(Qt::Horizontal);
-
-        gridLayout->addWidget(nCut_hs, 0, 1, 1, 1);
-
-        nCut_le = new QLineEdit(centralWidget);
-        nCut_le->setObjectName(QStringLiteral("nCut_le"));
-        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(nCut_le->sizePolicy().hasHeightForWidth());
-        nCut_le->setSizePolicy(sizePolicy);
-        nCut_le->setReadOnly(false);
-
-        gridLayout->addWidget(nCut_le, 0, 2, 1, 1);
-
         label_2 = new QLabel(centralWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
 
-        gridLayout->addWidget(label_2, 1, 0, 1, 1);
+        gridLayout->addWidget(label_2, 0, 0, 1, 1);
 
-        nBarrel_ParaL_hs = new QSlider(centralWidget);
-        nBarrel_ParaL_hs->setObjectName(QStringLiteral("nBarrel_ParaL_hs"));
-        nBarrel_ParaL_hs->setMaximum(800);
-        nBarrel_ParaL_hs->setOrientation(Qt::Horizontal);
+        BC_nK0_hs = new QSlider(centralWidget);
+        BC_nK0_hs->setObjectName(QStringLiteral("BC_nK0_hs"));
+        BC_nK0_hs->setMaximum(800);
+        BC_nK0_hs->setOrientation(Qt::Horizontal);
 
-        gridLayout->addWidget(nBarrel_ParaL_hs, 1, 1, 1, 1);
+        gridLayout->addWidget(BC_nK0_hs, 0, 1, 1, 1);
 
-        nBarrel_ParaL_le = new QLineEdit(centralWidget);
-        nBarrel_ParaL_le->setObjectName(QStringLiteral("nBarrel_ParaL_le"));
-        sizePolicy.setHeightForWidth(nBarrel_ParaL_le->sizePolicy().hasHeightForWidth());
-        nBarrel_ParaL_le->setSizePolicy(sizePolicy);
-        nBarrel_ParaL_le->setReadOnly(false);
+        BC_nK0_le = new QLineEdit(centralWidget);
+        BC_nK0_le->setObjectName(QStringLiteral("BC_nK0_le"));
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(BC_nK0_le->sizePolicy().hasHeightForWidth());
+        BC_nK0_le->setSizePolicy(sizePolicy);
+        BC_nK0_le->setReadOnly(false);
 
-        gridLayout->addWidget(nBarrel_ParaL_le, 1, 2, 1, 1);
+        gridLayout->addWidget(BC_nK0_le, 0, 2, 1, 1);
 
         label_3 = new QLabel(centralWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
 
-        gridLayout->addWidget(label_3, 2, 0, 1, 1);
+        gridLayout->addWidget(label_3, 1, 0, 1, 1);
 
-        nBarrel_ParaS_hs = new QSlider(centralWidget);
-        nBarrel_ParaS_hs->setObjectName(QStringLiteral("nBarrel_ParaS_hs"));
-        nBarrel_ParaS_hs->setMaximum(800);
-        nBarrel_ParaS_hs->setOrientation(Qt::Horizontal);
+        BC_nK1_hs = new QSlider(centralWidget);
+        BC_nK1_hs->setObjectName(QStringLiteral("BC_nK1_hs"));
+        BC_nK1_hs->setMaximum(800);
+        BC_nK1_hs->setOrientation(Qt::Horizontal);
 
-        gridLayout->addWidget(nBarrel_ParaS_hs, 2, 1, 1, 1);
+        gridLayout->addWidget(BC_nK1_hs, 1, 1, 1, 1);
 
-        nBarrel_ParaS_le = new QLineEdit(centralWidget);
-        nBarrel_ParaS_le->setObjectName(QStringLiteral("nBarrel_ParaS_le"));
-        sizePolicy.setHeightForWidth(nBarrel_ParaS_le->sizePolicy().hasHeightForWidth());
-        nBarrel_ParaS_le->setSizePolicy(sizePolicy);
-        nBarrel_ParaS_le->setReadOnly(false);
+        BC_nK1_le = new QLineEdit(centralWidget);
+        BC_nK1_le->setObjectName(QStringLiteral("BC_nK1_le"));
+        sizePolicy.setHeightForWidth(BC_nK1_le->sizePolicy().hasHeightForWidth());
+        BC_nK1_le->setSizePolicy(sizePolicy);
+        BC_nK1_le->setReadOnly(false);
 
-        gridLayout->addWidget(nBarrel_ParaS_le, 2, 2, 1, 1);
+        gridLayout->addWidget(BC_nK1_le, 1, 2, 1, 1);
 
 
         verticalLayout->addLayout(gridLayout);
@@ -192,9 +169,8 @@ public:
 
         retranslateUi(MainWindowClass);
         QObject::connect(Open, SIGNAL(clicked()), MainWindowClass, SLOT(Open()));
-        QObject::connect(nCut_hs, SIGNAL(sliderReleased()), MainWindowClass, SLOT(ValueChanged()));
-        QObject::connect(nBarrel_ParaL_hs, SIGNAL(sliderReleased()), MainWindowClass, SLOT(ValueChanged()));
-        QObject::connect(nBarrel_ParaS_hs, SIGNAL(sliderReleased()), MainWindowClass, SLOT(ValueChanged()));
+        QObject::connect(BC_nK0_hs, SIGNAL(sliderReleased()), MainWindowClass, SLOT(ValueChanged()));
+        QObject::connect(BC_nK1_hs, SIGNAL(sliderReleased()), MainWindowClass, SLOT(ValueChanged()));
 
         QMetaObject::connectSlotsByName(MainWindowClass);
     } // setupUi
@@ -203,9 +179,8 @@ public:
     {
         MainWindowClass->setWindowTitle(QApplication::translate("MainWindowClass", "MainWindow", Q_NULLPTR));
         Open->setText(QApplication::translate("MainWindowClass", "Open", Q_NULLPTR));
-        label->setText(QApplication::translate("MainWindowClass", "nCut:", Q_NULLPTR));
-        label_2->setText(QApplication::translate("MainWindowClass", "nBarrelK0:", Q_NULLPTR));
-        label_3->setText(QApplication::translate("MainWindowClass", "nBarrelK1:", Q_NULLPTR));
+        label_2->setText(QApplication::translate("MainWindowClass", "BC_nK0:", Q_NULLPTR));
+        label_3->setText(QApplication::translate("MainWindowClass", "BC_nK1:", Q_NULLPTR));
     } // retranslateUi
 
 };

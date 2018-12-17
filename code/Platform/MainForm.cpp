@@ -44,15 +44,17 @@ void MainWindow::Open()
 
 void MainWindow::ValueChanged()
 {
-    ui.nCut_le->setText(QString::number(ui.nCut_hs->value()));
-    ui.nBarrel_ParaL_le->setText(QString::number(ui.nBarrel_ParaL_hs->value()));
-    ui.nBarrel_ParaS_le->setText(QString::number(ui.nBarrel_ParaS_hs->value()));
+    ui.BC_nK0_le->setText(QString::number(ui.BC_nK0_hs->value()));
+    ui.BC_nK1_le->setText(QString::number(ui.BC_nK1_hs->value()));
 
-    int nCut = ui.nCut_hs->value();
-    int nBarrel_ParaL = ui.nBarrel_ParaL_hs->value();
-    int nBarrel_ParaS = ui.nBarrel_ParaS_hs->value();
+    int BC_nK0 = ui.BC_nK0_hs->value();
+    int BC_nK1 = ui.BC_nK1_hs->value();
 
-    this->BarrelCorrection(nCut, nBarrel_ParaL, nBarrel_ParaS);
+
+    m_cBarrelCorrection.SetK0(BC_nK0);
+    m_cBarrelCorrection.SetK1(BC_nK1);
+
+    this->BarrelCorrectionTest();
 }
 
 
@@ -65,23 +67,19 @@ void MainWindow::Init()
         SLOT(ReceiveMat(cv::Mat))
         );
 
+
     // DebugMK
-    this->Test();
+    //this->Test();
 }
+
 
 void MainWindow::Test()
 {
     //this->HistogramEnhancemen();
-
-    //this->DistortionCorrection(100, 1, 1);
 }
 
 
-int BarrelCorrectProcess(unsigned char * i_pImg, int i_nWidth, int i_nHeight, int i_nNewWidth, int i_nNewHeight, int nHalfWidth, int nHalfHeight, float i_f32Ratio[2], unsigned char * o_pImg, CvRect * pRect, int ReCalcFlag, float scaledown, float scaledownH);
-int VirtualStitchInit(int width, int height, float zoom, int endHeight, int startHeight, int *pOutWidth, int *pOutHeight, int level, int upMult, float max_ratio, int finalHeight);
-int VirtualStitchRelease();
-int VirtualStitchProcess(unsigned char * i_pImg, int width, int height, unsigned char * o_pImg, int i_nOutWidth, int i_nOutHeight, CvRect * pRect, int ReCalcFlag, float i_f32Ratio[2], int i_nOrgWidth, int i_nOrgHeight);
-void MainWindow::BarrelCorrection(int nCut_, int nBarrelK0_, int nBarrelK1_)
+void MainWindow::BarrelCorrectionTest()
 {
     // 对话框获取文件路径
     //string strFileName;
@@ -95,231 +93,20 @@ void MainWindow::BarrelCorrection(int nCut_, int nBarrelK0_, int nBarrelK1_)
 
     // 显示原始图像
     //cv::Mat matSrcImage = cv::imread(strFileName);
-    cv::Mat matSrcImage = cv::imread("./Resource/矫正前.jpeg");
+    cv::Mat matSrcImage = cv::imread("./Resource/2018121715541327.jpeg");
     if (matSrcImage.empty())
     {
         cout << "Could not load matSrcImage!" << endl;
     }
-    cv::Mat matSrcImageShow;   // 原始图像--->裁剪
+    cv::Mat matSrcImageShow;   
     cv::resize(matSrcImage, matSrcImageShow, cv::Size(matSrcImage.cols / 4, matSrcImage.rows / 4));
     cv::imshow("matSrcImageShow", matSrcImageShow);
-
-    // Mat和Array相互转换类
-    CTransform cTransform;
-    // VirtualStitch使能标志位
-    int nVirtualStitchFlag = 0;
-
-    // 固定输入参数
-    int nBASEK0 = 1600;
-    int nBASEK1 = 160;
-
-    int nHalfWidth = matSrcImage.cols / 2;
-    int nHalfHeight = matSrcImage.rows / 2;
-
-    int nIsBarrelSizeFlag = 1;   // 是否按设定大小裁剪标志位
-    int nFinalWidth = matSrcImage.cols;
-    int nFinalHeight = matSrcImage.rows;
-
-    // 可调输入参数
-    int nCut = nCut_;
-    int nBarrelK0 = nBarrelK0_;
-    int nBarrelK1 = nBarrelK1_;
-
-    // 是否计算输出图片尺寸标志位
-    int nIsReCalcBarrelFlag = 1;
-    cv::Mat matBarrelImage;
-    cv::Mat matBarrelImageROI;    // 结果图像--->裁剪
-    cv::Mat matBarrelImageShow;   // 裁剪--->缩放
-
-
-    int x, y;
-    float x2_add_y2;
-    int nNewHalfWidth, nNewHalfHeight;
-    int nBarrelWidth, nBarrelHeight;
-
-
-    static int s_nCut = -1;
-    static float s_afK[2] = { -1.0, -1.0 };    
-    static float fWratio = 1.0, fHratio = 1.0;
-
-    float fK[2];
-    float fRatio;
-
-
-    fK[0] = (float)(-(nBarrelK0 + nBASEK0) / 10000000000.0);
-    fK[1] = (float)((nBarrelK1 + nBASEK1) /  10000000000000000.0);
-    fRatio = 1.0;
-
-    if (nBarrelK1 == 0 && nBarrelK0 == 0)
-    {
-        matSrcImage.copyTo(matBarrelImage);
-        nBarrelWidth = matSrcImage.cols;
-        nBarrelHeight = matSrcImage.rows;
-    }
-    else
-    {
-        if (s_afK[0] != fK[0] || s_afK[1] != fK[0] || s_nCut != nCut)
-        {
-            // 使能VirtualStitch标志位
-            nVirtualStitchFlag = 1;
-
-            // 一旦改变了畸变参数，重新计算输出图片尺寸
-            nIsReCalcBarrelFlag = 1;
-
-            if (nIsBarrelSizeFlag)
-            {
-                x = nHalfWidth;
-                y = nHalfHeight;
-                nNewHalfWidth = x / (1.0 + fK[0] * x * x + fK[1] * x * x * x * x);                
-                nNewHalfHeight = y / (1.0 + fK[0] * y * y + fK[1] * y * y * y * y);
-
-                //fWratio = (float(nFinalWidth)) / (float(nNewHalfWidth / 4) * 8);
-                fWratio = (float(nFinalWidth)) / (float(nNewHalfWidth * 2));
-                fHratio = (float(nFinalHeight)) / (float(nNewHalfHeight * 2));
-
-                // 选择需要需要缩放的最小倍率，另一个方向则裁剪（ratio越接近1，缩放倍率越小）
-                if (fWratio < fHratio)
-                {
-                    fRatio = fHratio;
-                }
-                else
-                {
-                    fRatio = fWratio;
-                }
-
-                // DebugMK
-                cout << "fK[0]:" << fK[0] << ", fK[1]:" << fK[1] << endl;
-                cout << "fWratio:" << fWratio << ", fHratio:" << fHratio << ", fRatio:" << fRatio << endl;
-                fWratio = fHratio = fRatio;
-
-                nBarrelWidth = nFinalWidth;
-                nBarrelHeight = nFinalHeight;
-            }
-            else
-            {
-                x = nHalfWidth;
-                y = nHalfHeight;
-                x2_add_y2 = x * x + y * y;
-                float mk = (1.0 + fK[0] * x2_add_y2 + fK[1] * x2_add_y2 * x2_add_y2);
-                nNewHalfWidth = fRatio * (x / (1.0 + fK[0] * x2_add_y2 + fK[1] * x2_add_y2 * x2_add_y2));
-                nNewHalfHeight = fRatio * (y / (1.0 + fK[0] * x2_add_y2 + fK[1] * x2_add_y2 * x2_add_y2));
-
-                //nBarrelWidth = (nNewHalfWidth / 4) * 8;
-                nBarrelWidth = nNewHalfWidth * 2;
-                nBarrelHeight = nNewHalfHeight * 2;
-
-                fWratio = fHratio = fRatio * 100.0 / (float)nCut;
-            }            
-
-            // 更新变化值
-            s_afK[0] = fK[0];
-            s_afK[1] = fK[1];            
-            s_nCut = nCut;
-        }  
-
-        BYTE *pbySrcImage = new BYTE[matSrcImage.rows * matSrcImage.cols * 3];
-        BYTE *pbyDesImage = new BYTE[nBarrelWidth * nBarrelHeight * 3];
-
-        cTransform.Mat2Array(matSrcImage, pbySrcImage);
-
-        CvRect cvRect;
-        BarrelCorrectProcess(pbySrcImage, matSrcImage.cols, matSrcImage.rows, nBarrelWidth, nBarrelHeight, nHalfWidth, nHalfHeight, fK, pbyDesImage, &cvRect, nIsReCalcBarrelFlag, fWratio, fHratio);
-
-        matBarrelImage = cTransform.Array2Mat(pbyDesImage, nBarrelWidth, nBarrelHeight, 3);
-
-        delete[] pbySrcImage;
-        pbySrcImage = nullptr;
-        delete[] pbyDesImage;
-        pbyDesImage = nullptr;
-
-        if (nIsReCalcBarrelFlag)
-        {            
-            nBarrelWidth = cvRect.width;
-            nBarrelHeight = cvRect.height;
-
-            matBarrelImageROI = matBarrelImage(cvRect);
-            cv::resize(matBarrelImageROI, matBarrelImageShow, cv::Size(nBarrelWidth / 4, nBarrelHeight / 4));
-            cv::imshow("matDesImageShow", matBarrelImageShow);
-
-            nIsReCalcBarrelFlag = 0;
-        }       
-    }
-
-
-    ////////////////////////////////////////////////////////////////////////////////    
-    if (nVirtualStitchFlag)
-    {
-        // 可调输入参数
-        int nZoom = 600;
-        int nBarrelUp = 8;
-        int nUpDownCurveRatio = 13;
-        int nUpDownRatio = 120;
-            
-        int nIsReCalcVSFlag = 0;
-        cv::Mat matVSImage;
-        cv::Mat matVSImageROI;
-        cv::Mat matVSImageShow;
-
-        int nVSWidth, nVSHeight;
-        
-        int nAdjustStartHeight, nAdjustEndHeight;
-        nAdjustStartHeight = nBarrelHeight / 4;
-        nAdjustEndHeight = nBarrelHeight - 1;
-
-        float fZoomRatio;
-        fZoomRatio = 1.0 + nZoom / 1000.0;
-
-        float max_ratio = 0.9;
-
-
-        static float s_fZoomRatio;
-        static int s_nAdjustStartHeight, s_nAdjustEndHeight, s_nBarrelUp, s_nUpDownCurveRatio, s_nUpDownRatio;
-
-        /*if (s_fZoomRatio != fZoomRatio || s_nAdjustStartHeight != nAdjustStartHeight || s_nAdjustEndHeight != nAdjustEndHeight
-            || s_nBarrelUp != nBarrelUp || s_nUpDownCurveRatio != nUpDownCurveRatio || s_nUpDownRatio != nUpDownRatio)*/
-        {
-            nIsReCalcVSFlag = 1;
-
-            max_ratio = (1000.0 - nUpDownRatio) / 1000.0;
-
-            VirtualStitchInit(nBarrelWidth, nBarrelHeight, fZoomRatio, nAdjustEndHeight, nAdjustStartHeight, &nVSWidth, &nVSHeight, nBarrelUp, nUpDownCurveRatio, max_ratio, nFinalHeight);
-
-            s_fZoomRatio = fZoomRatio;
-            s_nAdjustStartHeight = nAdjustStartHeight;
-            s_nAdjustEndHeight = nAdjustEndHeight;
-            s_nBarrelUp = nBarrelUp;
-            s_nUpDownCurveRatio = nUpDownCurveRatio;
-            s_nUpDownRatio = nUpDownRatio;
-        }
-
-        BYTE *pbyDesImageROI = new BYTE[matBarrelImageROI.cols * matBarrelImageROI.rows * 3];
-        BYTE *pbyVSImage = new BYTE[nVSWidth * nVSHeight * 3];
-       
-        cTransform.Mat2Array(matBarrelImageROI, pbyDesImageROI);
-
-        CvRect cvRect;
-        VirtualStitchProcess(pbyDesImageROI, nBarrelWidth, nBarrelHeight, pbyVSImage, nVSWidth, nVSHeight, &cvRect, nIsReCalcVSFlag, fK, matSrcImage.cols, matSrcImage.rows);
-
-        matVSImage = cTransform.Array2Mat(pbyVSImage, nVSWidth, nVSHeight, 3);
-
-        delete[] pbyDesImageROI;
-        pbyDesImageROI = nullptr;
-        delete[] pbyVSImage;
-        pbyVSImage = nullptr;
-
-        if (nIsReCalcVSFlag == 1)
-        {
-            matVSImageROI = matVSImage(cvRect);
-
-            cv::resize(matVSImageROI, matVSImageShow, cv::Size(matVSImageROI.cols / 4, matVSImageROI.rows / 4));
-            cv::imshow("matVSImageShow", matVSImageShow);
-
-            nIsReCalcVSFlag = 0;
-        }
-
-        VirtualStitchRelease();
-    }
+    
+    cv::Mat matBarrelCorrectionImage = m_cBarrelCorrection.BarrelCorrection(matSrcImage);
+    cv::resize(matBarrelCorrectionImage, matBarrelCorrectionImage, cv::Size(matBarrelCorrectionImage.cols / 4, matBarrelCorrectionImage.rows / 4));
+    imshow("BarrelCorrectionImage", matBarrelCorrectionImage);
 }
+
 
 
 extern "C" void AMHE_main_run(int *img, int m, int n, double c, int binNum, double *newHistOut, int *Map);

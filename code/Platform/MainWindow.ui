@@ -101,16 +101,16 @@
     <item>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>nCut:</string>
+         <string>BC_nK0:</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QSlider" name="nCut_hs">
+       <widget class="QSlider" name="BC_nK0_hs">
         <property name="maximum">
-         <number>100</number>
+         <number>800</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -118,7 +118,7 @@
        </widget>
       </item>
       <item row="0" column="2">
-       <widget class="QLineEdit" name="nCut_le">
+       <widget class="QLineEdit" name="BC_nK0_le">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -131,14 +131,14 @@
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>nBarrelK0:</string>
+         <string>BC_nK1:</string>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QSlider" name="nBarrel_ParaL_hs">
+       <widget class="QSlider" name="BC_nK1_hs">
         <property name="maximum">
          <number>800</number>
         </property>
@@ -148,37 +148,7 @@
        </widget>
       </item>
       <item row="1" column="2">
-       <widget class="QLineEdit" name="nBarrel_ParaL_le">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="readOnly">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>nBarrelK1:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QSlider" name="nBarrel_ParaS_hs">
-        <property name="maximum">
-         <number>800</number>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
-       <widget class="QLineEdit" name="nBarrel_ParaS_le">
+       <widget class="QLineEdit" name="BC_nK1_le">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -243,23 +213,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>nCut_hs</sender>
-   <signal>sliderReleased()</signal>
-   <receiver>MainWindowClass</receiver>
-   <slot>ValueChanged()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>141</x>
-     <y>643</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>72</x>
-     <y>601</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>nBarrel_ParaL_hs</sender>
+   <sender>BC_nK0_hs</sender>
    <signal>sliderReleased()</signal>
    <receiver>MainWindowClass</receiver>
    <slot>ValueChanged()</slot>
@@ -275,7 +229,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>nBarrel_ParaS_hs</sender>
+   <sender>BC_nK1_hs</sender>
    <signal>sliderReleased()</signal>
    <receiver>MainWindowClass</receiver>
    <slot>ValueChanged()</slot>

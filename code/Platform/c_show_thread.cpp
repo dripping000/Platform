@@ -5,9 +5,10 @@
 #include <opencv2/highgui.hpp>
 using namespace cv;
 
+// DebugMK
 #include "c_barrel_correction.h"
 
-//Debug
+// DebugMK
 #include "debug_log.h"
 
 
@@ -57,7 +58,7 @@ void CShowThread::run()
         }
 
         // ÕºœÒ¥¶¿ÌÀ„∑®
-        #if 1
+        #if 0
         CBarrelCorrection cBarrelCorrection;
         mat = cBarrelCorrection.BarrelCorrection(mat);
         #endif

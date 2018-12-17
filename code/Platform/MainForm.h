@@ -3,6 +3,9 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_MainWindow.h"
 
+// DebugMK
+#include "c_barrel_correction.h"
+
 
 class MainWindow : public QMainWindow
 {
@@ -21,15 +24,17 @@ public slots:
     void ValueChanged();
 
 private:
+    // 畸变矫正算法类
+    CBarrelCorrection m_cBarrelCorrection;
+
+private:
     void Init();
 
-    void Test();
+    void Test();    
 
-    void Mat2Array(cv::Mat matImage, int *pArray);
+    void BarrelCorrectionTest();
 
     void HistogramEnhancemen();
-    void BarrelCorrection(int nCut_, int nBarrel_ParaL_, int nBarrel_ParaS_);
-    void VirtualStitch();
-
+    void Mat2Array(cv::Mat matImage, int *pArray);
 
 };

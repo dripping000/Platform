@@ -20,7 +20,7 @@ CBarrelCorrection::CBarrelCorrection()
     this->m_nBarrelCorrectionFixedSizeFlag = 1;
 
     // VirtualStitch
-    this->m_nVirtualStitchFlag = 1;  
+    this->m_nVirtualStitchFlag = 0;  
 
     this->m_nZoom = 600;
     this->m_nBarrelUp = 8;
@@ -119,7 +119,7 @@ cv::Mat CBarrelCorrection::BarrelCorrection(cv::Mat matSrcImage)
                 cout << "fK[0]:" << fK[0] << ", fK[1]:" << fK[1] << endl;
                 cout << "fWratio:" << fWratio << ", fHratio:" << fHratio << ", fRatio:" << fRatio << endl;
 
-                fWratio = fHratio = fRatio;                
+                fWratio = fHratio = fRatio = 1;                
             }
             else
             {
@@ -220,6 +220,9 @@ cv::Mat CBarrelCorrection::VirtualStitch(cv::Mat matSrcImage, float fK[])
 
         VirtualStitchInit(matSrcImage.cols, matSrcImage.rows, fZoomRatio, nAdjustEndHeight, nAdjustStartHeight, &(this->m_nVirtualStitchWidth), &(this->m_nVirtualStitchHeight), 
             this->m_nBarrelUp, this->m_nUpDownCurveRatio, max_ratio, this->m_nFinalHeight);
+
+        // DebugMK
+        cout << "this->m_nVirtualStitchWidth:" << this->m_nVirtualStitchWidth << ", this->m_nVirtualStitchHeight:" << this->m_nVirtualStitchHeight << ", this->m_nFinalHeight:" << this->m_nFinalHeight << endl;
 
         s_fZoomRatio = fZoomRatio;
         s_nAdjustStartHeight = nAdjustStartHeight;
