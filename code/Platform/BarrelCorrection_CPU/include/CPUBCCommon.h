@@ -10,10 +10,8 @@ typedef struct tagBCObject
 
 	int srcWidth;
 	int srcHeight;
-
 	int srcPitchY;
 	int srcPitchUV;
-
 	int dstWidth;
 	int dstHeight;
 
@@ -51,10 +49,8 @@ typedef struct tagBC_VSObject
 
 	int srcWidth;
 	int srcHeight;
-
 	int srcPitchY;
 	int srcPitchUV;
-
 	int dstWidth;
 	int dstHeight;
 

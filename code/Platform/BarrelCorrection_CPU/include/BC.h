@@ -7,10 +7,8 @@ typedef struct tagBCOpen
 {
 	unsigned int u32InputWidth;
 	unsigned int u32InputHeight;
-
 	unsigned int u32InputPitchY;
 	unsigned int u32InputPitchUV;
-
 	unsigned int u32OutputWidth;
 	unsigned int u32OutputHeight;
 	
@@ -27,36 +25,33 @@ typedef struct tagBCOpen
 }TBCOpen;
 
 
+
+
 typedef struct tagBC_VSParam
 {
 	int s32BarrelParam1;
 	int s32BarrelParam2;
-
 	int s32TeleZoomInRatio;
 	int s32TeleCurvLevel;
 	int s32TeleMultVal;
 	int s32WideRatio;
-
 	int s32MidWidth;
 	int s32MidHeight;
-
 	int s32AdjHeight;
 	float f32WidthScale;
 }TBC_VSParam;
+
 
 typedef struct tagBC_VSOpen
 {
 	unsigned int u32InputWidth;
 	unsigned int u32InputHeight;
-
 	unsigned int u32InputPitchY;
 	unsigned int u32InputPitchUV;
-
 	unsigned int u32OutputWidth;
 	unsigned int u32OutputHeight;
-
-    TBC_VSParam tBC_VSParam;
-	EMISPImageFormat emFormat;	
+	EMISPImageFormat emFormat;
+	TBC_VSParam tBC_VSParam;
 }TBC_VSOpen;
 
 

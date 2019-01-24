@@ -1,0 +1,9 @@
+APP_ABI := armeabi-v7a-hard #arm64-v8a #armeabi
+#APP_STL := gnustl_static
+APP_PLATFORM := android-21
+#NDK_TOOLCHAIN_VERSION := 4.8 
+#LOCAL_ARM_NEON := true
+#APP_CPPFLAGS += -fexceptions -frtti
+#APP_CPPFLAGS +=-fpermissive
+#APP_STL := stlport_static
+APP_STL += stlport_static

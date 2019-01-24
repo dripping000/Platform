@@ -93,9 +93,6 @@
     <ClCompile Include="c_barrel_correction.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BarrelCorrection_CPU\CPUBarrelCorrection.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="BarrelCorrection_CPU\module\BC_1920_1080.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -132,57 +129,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="c_barrel_correction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BarrelCorrection_CPU\CPUBarrelCorrection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BarrelCorrection_CPU\include\CL\cl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BarrelCorrection_CPU\include\CL\cl.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BarrelCorrection_CPU\include\CL\cl_egl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BarrelCorrection_CPU\include\CL\cl_ext.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BarrelCorrection_CPU\include\CL\cl_ext_qcom.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BarrelCorrection_CPU\include\CL\cl_gl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BarrelCorrection_CPU\include\CL\cl_gl_ext.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BarrelCorrection_CPU\include\CL\cl_perf_monitor_qcom.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BarrelCorrection_CPU\include\CL\cl_platform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BarrelCorrection_CPU\include\CL\opencl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BarrelCorrection_CPU\include\CPUBCCommon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BarrelCorrection_CPU\include\CPUBC.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BarrelCorrection_CPU\include\CPUCommon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BarrelCorrection_CPU\include\BC.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BarrelCorrection_CPU\include\ISPVideoAlg.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BarrelCorrection_CPU\include\ISP_Alglog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

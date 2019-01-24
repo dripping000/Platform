@@ -62,7 +62,7 @@ typedef struct tagISPImageBuffer
 	unsigned int u32PitchUV;          // 输入/输出图像UV分量跨度
 	unsigned int u32Flag;             // 输出图像有效标识，1为有效，0为无效
 	int fd;                           // ION buffer id
-	EMISPImageFormat emFormat;        // 图像格式
+	EMISPImageFormat emFormat;           // 图像格式
 	
 	void* pvbuffertag;				  //与该TISPImageBuffer对应tag（每个TISPImageBuffer都唯一对应，用于释放）
 }TISPImageBuffer;
@@ -70,7 +70,7 @@ typedef struct tagISPImageBuffer
 // 输入输出图像信息结构体
 typedef struct tagISPImageInfo
 {
-	TISPImageBuffer tImageBuffer[MAX_IMAGE_INFO];  // 图像数据，可能有多个
+	TISPImageBuffer tImageBuffer[MAX_IMAGE_INFO];     // 图像数据，可能有多个
 	void* pvImageInfo;                             // 和图像数据对应的信息
 	
 	unsigned int u32FreeBufferNumber;			   // 待free的TISPImageBuffer数目

@@ -128,7 +128,6 @@
     <ClCompile Include="BarrelCorrection\BarrelProcess.cpp" />
     <ClCompile Include="BarrelCorrection\common_func.cpp" />
     <ClCompile Include="BarrelCorrection\VirtualStitch.cpp" />
-    <ClCompile Include="BarrelCorrection_CPU\CPUBarrelCorrection.c" />
     <ClCompile Include="BarrelCorrection_CPU\module\BC.c" />
     <ClCompile Include="BarrelCorrection_CPU\module\BC_1920_1080.c" />
     <ClCompile Include="c_barrel_correction.cpp" />
@@ -152,23 +151,6 @@
     <QtMoc Include="q_image_show.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BarrelCorrection_CPU\include\BC.h" />
-    <ClInclude Include="BarrelCorrection_CPU\include\CL\cl.h" />
-    <ClInclude Include="BarrelCorrection_CPU\include\CL\cl.hpp" />
-    <ClInclude Include="BarrelCorrection_CPU\include\CL\cl_egl.h" />
-    <ClInclude Include="BarrelCorrection_CPU\include\CL\cl_ext.h" />
-    <ClInclude Include="BarrelCorrection_CPU\include\CL\cl_ext_qcom.h" />
-    <ClInclude Include="BarrelCorrection_CPU\include\CL\cl_gl.h" />
-    <ClInclude Include="BarrelCorrection_CPU\include\CL\cl_gl_ext.h" />
-    <ClInclude Include="BarrelCorrection_CPU\include\CL\cl_perf_monitor_qcom.h" />
-    <ClInclude Include="BarrelCorrection_CPU\include\CL\cl_platform.h" />
-    <ClInclude Include="BarrelCorrection_CPU\include\CL\opencl.h" />
-    <ClInclude Include="BarrelCorrection_CPU\CPUBarrelCorrection.h" />
-    <ClInclude Include="BarrelCorrection_CPU\include\CPUBC.h" />
-    <ClInclude Include="BarrelCorrection_CPU\include\CPUBCCommon.h" />
-    <ClInclude Include="BarrelCorrection_CPU\include\CPUCommon.h" />
-    <ClInclude Include="BarrelCorrection_CPU\include\ISPVideoAlg.h" />
-    <ClInclude Include="BarrelCorrection_CPU\include\ISP_Alglog.h" />
     <ClInclude Include="c_barrel_correction.h" />
     <ClInclude Include="debug_log.h" />
     <ClInclude Include="Utils\c_transform.h" />
