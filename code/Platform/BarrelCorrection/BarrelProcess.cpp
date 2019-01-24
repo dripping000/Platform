@@ -14,7 +14,8 @@ unsigned char clip(int indata);
                o_pImg: 输出rgb图像指针[in] 
 返回值说明  : 成功: 0, 失败: -1
 ====================================================================*/
-int BarrelCorrectProcess(unsigned char * i_pImg, int i_nWidth, int i_nHeight, int i_nNewWidth, int i_nNewHeight, int nHalfWidth, int nHalfHeight,float i_f32Ratio[2],unsigned char * o_pImg, CvRect * pRect, int ReCalcFlag, float scaledown, float scaledownH)
+int BarrelCorrectProcess(unsigned char * i_pImg, int i_nWidth, int i_nHeight, int i_nNewWidth, int i_nNewHeight, 
+    int nHalfWidth, int nHalfHeight,float i_f32Ratio[2],unsigned char * o_pImg, CvRect * pRect, int ReCalcFlag, float scaledown, float scaledownH)
 {
     float vary, vary1, varall; 
 

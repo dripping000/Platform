@@ -67,7 +67,6 @@ void MainWindow::Init()
         SLOT(ReceiveMat(cv::Mat))
         );
 
-
     // DebugMK
     //this->Test();
 }
@@ -75,29 +74,34 @@ void MainWindow::Init()
 
 void MainWindow::Test()
 {
-    //this->HistogramEnhancemen();
+    
 }
 
 
 void MainWindow::BarrelCorrectionTest()
 {
+#if 1
     // 对话框获取文件路径
-    //string strFileName;
-    //QString qstrFileName = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("请选择文件"));
-    //if (qstrFileName.isEmpty())
-    //{
-    //    return;
-    //}
-    //strFileName = qstrFileName.toLocal8Bit().data();
-    //printf("strFileName: %s\n", strFileName.c_str());
+    string strFileName;
+    QString qstrFileName = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("请选择文件"));
+    if (qstrFileName.isEmpty())
+    {
+        return;
+    }
+    strFileName = qstrFileName.toLocal8Bit().data();
+    printf("strFileName: %s\n", strFileName.c_str());
 
     // 显示原始图像
-    //cv::Mat matSrcImage = cv::imread(strFileName);
-    cv::Mat matSrcImage = cv::imread("./Resource/2018121715541327.jpeg");
+    cv::Mat matSrcImage = cv::imread(strFileName);
+#endif
+    //cv::Mat matSrcImage = cv::imread("./Resource/2018122409130887.jpeg");
     if (matSrcImage.empty())
     {
         cout << "Could not load matSrcImage!" << endl;
     }
+
+
+#if 0 // RGB畸变校正
     cv::Mat matSrcImageShow;   
     cv::resize(matSrcImage, matSrcImageShow, cv::Size(matSrcImage.cols / 4, matSrcImage.rows / 4));
     cv::imshow("matSrcImageShow", matSrcImageShow);
@@ -105,9 +109,22 @@ void MainWindow::BarrelCorrectionTest()
     cv::Mat matBarrelCorrectionImage = m_cBarrelCorrection.BarrelCorrection(matSrcImage);
     cv::resize(matBarrelCorrectionImage, matBarrelCorrectionImage, cv::Size(matBarrelCorrectionImage.cols / 4, matBarrelCorrectionImage.rows / 4));
     imshow("BarrelCorrectionImage", matBarrelCorrectionImage);
+#endif
+
+#if 1 // YUV畸变校正
+    int SrcHeight = 1080;
+    int SrcWidth = 1920;
+
+    cv::Mat matSrcImageShow;
+    cv::resize(matSrcImage, matSrcImageShow, cv::Size(SrcWidth, SrcHeight));
+    cv::imshow("matSrcImageShow", matSrcImageShow);
+
+    cv::Mat rgbImgResult;
+    rgbImgResult = this->m_cBarrelCorrection.BarrelCorrection_CPU(matSrcImageShow);
+    cv::imshow("rgbimg", rgbImgResult);
+#endif
+
 }
-
-
 
 extern "C" void AMHE_main_run(int *img, int m, int n, double c, int binNum, double *newHistOut, int *Map);
 void MainWindow::HistogramEnhancemen()

@@ -38,6 +38,9 @@ public:
     cv::Mat BarrelCorrection(cv::Mat matSrcImage);
     cv::Mat VirtualStitch(cv::Mat matSrcImage, float fK[]);
 
+    // CPU»û±ä½ÃÕýYUV
+    cv::Mat BarrelCorrection_CPU(cv::Mat& matSrcImage);
+
 
 private:
     CTransform m_cTransform;

@@ -1,5 +1,7 @@
 #include "c_transform.h"
 
+#include <iostream>
+#include <fstream>
 
 
 CTransform::CTransform()
@@ -90,4 +92,87 @@ cv::Mat CTransform::Array2Mat(BYTE* pbyImageArray, int nWeight, int nHeight, int
 	}
 
 	return c_matImage;
+}
+
+
+void CTransform::ReadTxtFileToMat(const std::string strFilePath, cv::Mat& mat)
+{
+    std::ifstream infile;
+    infile.open(strFilePath, std::ios::in);
+    if (!infile.is_open())
+    {
+        std::cerr << "Open " << strFilePath << " failed!" << std::endl;
+        return;
+    }
+
+    for (int i = 0; i < mat.rows; i++)
+    {
+        for (int j = 0; j < mat.cols; j++)
+        {
+            infile >> mat.at<float>(i, j);
+        }
+    }
+
+    infile.close();
+}
+
+
+void CTransform::ReadMatToTxtFile(const cv::Mat& mat, std::string strFilePath)
+{
+    std::ofstream outfile;
+    outfile.open(strFilePath, std::ios::out);
+    if (!outfile.is_open())
+    {
+        std::cerr << "Open " << strFilePath << " failed!" << std::endl;
+        return;
+    }
+
+    for (int i = 0; i < mat.rows; i++)
+    {
+        for (int j = 0; j < mat.cols; j++)
+        {
+            outfile << mat.at<float>(i, j) << " ";
+        }
+        outfile << "\n";
+    }
+
+}
+
+
+void CTransform::ShuffleData(const cv::Mat& matFeature, const cv::Mat& matLabel, cv::Mat& matFeatureShuffled, cv::Mat& matLabelShuffled)
+{
+    if (matFeature.rows != matLabel.rows)
+    {
+        std::cerr << "WARNING: The feature length unequals the label length!" << std::endl;
+        return;
+    }
+
+    std::vector<int> seeds;
+    for (int i = 0; i < matFeature.rows; i++)
+    {
+        seeds.push_back(i);
+    }
+    cv::randShuffle(seeds);
+
+    for (int i = 0; i < matFeature.rows; i++)
+    {
+        matFeatureShuffled.push_back(matFeature.row(seeds[i]));
+        matLabelShuffled.push_back(matLabel.row(seeds[i]));
+    }
+}
+
+
+void CTransform::SplitData(cv::Mat& matData, cv::Mat& matDataTrain, cv::Mat& matDataTest, float fRate)
+{
+    int train_num = int(fRate * matData.rows);
+
+    for (int i = 0; i < train_num; i++)
+    {
+        matDataTrain.push_back(matData.row(i));
+    }
+
+    for (int i = train_num; i < matData.rows; i++)
+    {
+        matDataTest.push_back(matData.row(i));
+    }
 }
