@@ -2,6 +2,8 @@
 
 #include <opencv2/core.hpp>
 
+#include <string>
+
 #include "c_transform.h"
 
 class CBarrelCorrection
@@ -40,6 +42,7 @@ public:
 
     // CPU»û±ä½ÃÕýYUV
     cv::Mat BarrelCorrection_CPU(cv::Mat& matSrcImage);
+    void BarrelCorrection_CPU_2(std::string strFilePath);
 
 
 private:

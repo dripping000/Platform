@@ -28,30 +28,30 @@ int BarrelCorrectionOpen(TPlatformObject* ptPlatformObject, TBarrelCorrectionObj
 	int outputwidth_vs = ptBarrelCorrectionOpen->tBC_VSOpen.u32OutputWidth;
 	int outputheight_vs = ptBarrelCorrectionOpen->tBC_VSOpen.u32OutputHeight;
 
-	if (ptBarrelCorrectionObject->flag == 0)
-	{
-
-		if( (2048 == inputwidth)&&(1536==inputheight)&&(2048 ==outputwidth)&&(1536==outputheight))
-		{
-		 	result = BarrelCorrectOpenA(ptPlatformObject,ptBarrelCorrectionObject,
-			&ptBarrelCorrectionObject->tBCObject, &ptBarrelCorrectionOpen->tBCOpen);
-		}
-		else if ( (2048 == inputwidth)&&(1536==inputheight)&&(1920 ==outputwidth)&&(1080==outputheight))
-		{
-			 result = BarrelCorrectOpenB(ptPlatformObject,ptBarrelCorrectionObject,
-			&ptBarrelCorrectionObject->tBCObject, &ptBarrelCorrectionOpen->tBCOpen);
-		}
-		else if ( (2048 == inputwidth)&&(1536==inputheight)&&(1600 ==outputwidth)&&(1200==outputheight))
-		{
-		 	result = BarrelCorrectOpenC(ptPlatformObject,ptBarrelCorrectionObject,
-			&ptBarrelCorrectionObject->tBCObject, &ptBarrelCorrectionOpen->tBCOpen);
-		}
-		else
-		{
-			 result = BarrelCorrectOpen(ptPlatformObject,ptBarrelCorrectionObject,
-			&ptBarrelCorrectionObject->tBCObject, &ptBarrelCorrectionOpen->tBCOpen);
-			 ISPprintLog("==============>BCOpen====>default!!!\n");
-		}
+    
+    if (ptBarrelCorrectionObject->flag == 0)
+    {
+        if ((2048 == inputwidth) && (1536 == inputheight) && (2048 == outputwidth) && (1536 == outputheight))
+        {
+            /*result = BarrelCorrectOpenA(ptPlatformObject, ptBarrelCorrectionObject,
+                &ptBarrelCorrectionObject->tBCObject, &ptBarrelCorrectionOpen->tBCOpen);*/
+        }
+        else if ((2048 == inputwidth) && (1536 == inputheight) && (1920 == outputwidth) && (1080 == outputheight))
+        {
+            result = BarrelCorrectOpenB(ptPlatformObject, ptBarrelCorrectionObject,
+                &ptBarrelCorrectionObject->tBCObject, &ptBarrelCorrectionOpen->tBCOpen);
+        }
+        else if ((2048 == inputwidth) && (1536 == inputheight) && (1600 == outputwidth) && (1200 == outputheight))
+        {
+            /*result = BarrelCorrectOpenC(ptPlatformObject, ptBarrelCorrectionObject,
+                &ptBarrelCorrectionObject->tBCObject, &ptBarrelCorrectionOpen->tBCOpen);*/
+        }
+        else
+        {
+            result = BarrelCorrectOpenB(ptPlatformObject, ptBarrelCorrectionObject,
+                &ptBarrelCorrectionObject->tBCObject, &ptBarrelCorrectionOpen->tBCOpen);
+            ISPprintLog("==============>BCOpen====>default!!!\n");
+        }
 
 		printf("==============>BCOpen====>inputwidth:%d,inputheight:%d,outputwidth:%d,outputheight:%d\n",inputwidth,inputheight,outputwidth,outputheight);
 

@@ -3,7 +3,7 @@ extern "C"{
 #include<sys/types.h>
 #include<sys/stat.h>
 #include<fcntl.h>
-#include <sys/time.h>
+//#include <sys/time.h>
 #include <ctype.h>
 #include "ISP_Alglog.h"
 
@@ -26,8 +26,8 @@ extern "C"{
 #include <android/log.h>
 #endif
 
-#include <pthread.h>
-#include <sys/prctl.h>
+//#include <pthread.h>
+//#include <sys/prctl.h>
 
 #include <list> 
 #include<vector>
@@ -38,9 +38,11 @@ static int initFlag = 0;
 
 static unsigned int get_current_time(void)
 {
-	struct timeval tv;
-	gettimeofday(&tv, NULL);
-	return tv.tv_sec * 1000 + tv.tv_usec / 1000;
+    //struct timeval tv;
+    //gettimeofday(&tv, NULL);
+    //return tv.tv_sec * 1000 + tv.tv_usec / 1000;
+
+    return 0;
 }
 
 /*=========================================================================

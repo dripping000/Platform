@@ -7,6 +7,7 @@ extern "C" {
 
 typedef struct tagPlatformObject
 {
+    int DebugMK;
 
 }TPlatformObject;
 

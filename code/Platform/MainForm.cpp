@@ -112,8 +112,8 @@ void MainWindow::BarrelCorrectionTest()
 #endif
 
 #if 1 // YUV»û±äÐ£Õý
-    int SrcHeight = 1080;
-    int SrcWidth = 1920;
+    int SrcHeight = 1536;
+    int SrcWidth = 2048;
 
     cv::Mat matSrcImageShow;
     cv::resize(matSrcImage, matSrcImageShow, cv::Size(SrcWidth, SrcHeight));

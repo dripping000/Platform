@@ -1,15 +1,27 @@
+#define PC
+#define NULL 0
+//#define ARM
+
+// 头文件
+#ifdef ARM
 #define _GNU_SOURCE
 #include <sched.h>
 #include <stdio.h>
 #include <malloc.h>
 #include <stdlib.h>
 #include <math.h>
-#include "CPUBC.h"
 #include <pthread.h>
 #include <string.h>
 #include <arm_neon.h>
-#include "ISP_Alglog.h"
 #include <sys/prctl.h>
+#endif
+
+#ifdef PC
+#include <time.h>
+#endif
+
+#include "CPUBC.h"
+#include "ISP_Alglog.h"
 /////////////////////////////////////////////////////////////////////////////////////////
 #define UUVSETBL12	//define to run in 12 threads. if not defined, run in 8 threads
 //#define CPUCOMBINE
@@ -38,7 +50,8 @@ float* coordUV_m1B = NULL ;
 float* coordY_m2B = NULL ;
 float* coordUV_m2B = NULL ;
 
-
+// 多线程全局变量
+#ifdef ARM
 pthread_t g_hThread1B;
 pthread_t g_hThread2B;
 pthread_t g_hThread3B;
@@ -140,7 +153,51 @@ pthread_mutex_t mutexBC_thread11B = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t BCCond_thread11B = PTHREAD_COND_INITIALIZER;
 pthread_mutex_t mutexBC_mainB = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t BCCond_mainB = PTHREAD_COND_INITIALIZER;
+#endif
 
+
+#ifdef PC
+void bc_convertB()
+{
+    int j;
+    unsigned short *uv1;
+
+    for (j = 0; j < 1920 * 1080; j++)
+    {
+        unsigned char fxy[4];
+        fxy[0] = *(BCcoordYYFXYCHARB + j * 4);
+        fxy[1] = *(BCcoordYYFXYCHARB + j * 4 + 1);
+        fxy[2] = *(BCcoordYYFXYCHARB + j * 4 + 2);
+        fxy[3] = *(BCcoordYYFXYCHARB + j * 4 + 3);
+
+        unsigned char x0y0;
+        unsigned char x1y0;
+        unsigned char x0y1;
+        unsigned char x1y1;
+
+        x0y0 = (pSrcYBCB[BCcoordYYB[j]]);
+        x1y0 = (pSrcYBCB[BCcoordYYB[j] + 1]);
+        x0y1 = (pSrcYBCB[BCcoordYYB[j] + PITCHY]);
+        x1y1 = (pSrcYBCB[BCcoordYYB[j] + PITCHYADD1]);
+
+        unsigned int temp;
+        temp = fxy[0] * x0y0 + fxy[1] * x1y0 + fxy[2] * x0y1 + fxy[3] * x1y1;
+        unsigned char result = temp >> 8;
+        *(BCYDataB + j) = result;
+    }
+
+    for (j = 0; j < 1920 * 1080 / 4; j++)
+    {
+        uv1 = (unsigned short *)&pSrcUBCB[BCcoordUUVB[j]];
+        (BCUVDataB[j << 1]) = ((*uv1) & 0xff);
+        BCUVDataB[(j << 1) + 1] = ((*uv1 >> 8) & 0xff);
+    }
+}
+#endif
+
+
+// ARM计时
+#ifdef ARM
 long diffB(struct timeval start, struct timeval end)
 {
 	struct timeval temp;
@@ -156,7 +213,10 @@ long diffB(struct timeval start, struct timeval end)
 	}
 	return (temp.tv_sec * 1000000 + temp.tv_usec);
 }
+#endif
 
+// 多线程双线性插值
+#ifdef ARM
 void bc_convert0B ()
 {
 	int j;
@@ -1585,6 +1645,8 @@ void ProcessBarrelCThread11B()
 		pthread_mutex_unlock(&mutexBC_mainB);
 		}
 }
+#endif
+
 
 int BarrelCorrectInitB(int i_nWidth, int i_nHeight, int i_nNewWidth, int i_nNewHeight,
 					float i_f32Ratio1, float i_f32Ratio2,
@@ -2060,6 +2122,7 @@ int BarrelCorrectOpenB(TPlatformObject* ptPlatformObject, TBarrelCorrectionObjec
     }
 #endif
 
+#ifdef ARM
 	g1B_exit_flag = 0;
 	g2B_exit_flag = 0;
 	g3B_exit_flag = 0;
@@ -2144,6 +2207,7 @@ int BarrelCorrectOpenB(TPlatformObject* ptPlatformObject, TBarrelCorrectionObjec
 		return -1;
 	}
 #endif
+#endif
 
 	return SUCCESS_GPUALG;
 }
@@ -2151,6 +2215,7 @@ int BarrelCorrectOpenB(TPlatformObject* ptPlatformObject, TBarrelCorrectionObjec
 int BarrelCorrectProcessB(TPlatformObject* ptPlatformObject, TBCObject* ptBCObject,
 							TISPImageInfo* ptBarrelInput, TISPImageInfo* ptBarrelOutput)
 {
+#ifdef ARM
 	struct timeval time1, time2;
 	struct timezone tzone;
 	double total_time = 0;
@@ -2159,6 +2224,7 @@ int BarrelCorrectProcessB(TPlatformObject* ptPlatformObject, TBCObject* ptBCObje
 	double total_time_single_min = 10000;
 
 	gettimeofday(&time1, &tzone);
+#endif
 
 	pSrcYBCB = ptBarrelInput->tImageBuffer[0].pu8ImageDataY;
 	pSrcUBCB = ptBarrelInput->tImageBuffer[0].pu8ImageDataU;
@@ -2166,7 +2232,7 @@ int BarrelCorrectProcessB(TPlatformObject* ptPlatformObject, TBCObject* ptBCObje
 	BCYDataB = ptBarrelOutput->tImageBuffer[0].pu8ImageDataY;
 	BCUVDataB = ptBarrelOutput->tImageBuffer[0].pu8ImageDataU;
 
-
+#ifdef ARM
 	BCDataThread1BOUTBool = 0;
 	BCDataThread2BOUTBool = 0;
 	BCDataThread3BOUTBool = 0;
@@ -2246,6 +2312,11 @@ int BarrelCorrectProcessB(TPlatformObject* ptPlatformObject, TBCObject* ptBCObje
 	}
 	pthread_mutex_unlock(&mutexBC_mainB);
 	ISPprintLog("[[[[[MAIN ALL END]]]]]\n");
+#endif
+
+#ifdef PC
+    bc_convertB();
+#endif
 
 	ptBarrelOutput->tImageBuffer[0].u32Width= ptBCObject->dstWidth;
 	ptBarrelOutput->tImageBuffer[0].u32Height= ptBCObject->dstHeight;
@@ -2254,16 +2325,19 @@ int BarrelCorrectProcessB(TPlatformObject* ptPlatformObject, TBCObject* ptBCObje
 	//ptBarrelOutput->tImageBuffer[0].u32PitchY= 1664;
 	//ptBarrelOutput->tImageBuffer[0].u32PitchUV= 1664;
 
+#ifdef ARM
 	gettimeofday(&time2, &tzone);
 	total_time_single = diffB(time1, time2) / 1000.0;
 	ISPprintLog("======B=======>single time is %fms\n", total_time_single);
+#endif
 
 	return SUCCESS_GPUALG;
 }
 
 int BarrelCorrectCloseB(TPlatformObject* ptPlatformObject, TBCObject* ptBCObject)
 {
-
+// 释放多线程资源
+#ifdef ARM
 	int ret = 0;
 
 	g1B_exit_flag = 1;
@@ -2410,7 +2484,8 @@ int BarrelCorrectCloseB(TPlatformObject* ptPlatformObject, TBCObject* ptBCObject
 		return -1;
 	}
 
-       #endif
+    #endif
+#endif
 
 	free(BCcoordYYB);
 	free(BCcoordYYFXB);
@@ -2435,7 +2510,6 @@ int BarrelCorrectCloseB(TPlatformObject* ptPlatformObject, TBCObject* ptBCObject
 	coordUV_m1B = NULL;
 	coordY_m2B = NULL;
 	coordUV_m2B = NULL;
-
 
 	return 0;
 }

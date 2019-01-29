@@ -10,6 +10,8 @@
 #include "CPUBC.h"
 #include "CPUBarrelCorrection.h"
 
+#include "ISPVideoAlg.h"
+
 //Debug
 #include "debug_log.h"
 
@@ -417,4 +419,136 @@ cv::Mat CBarrelCorrection::BarrelCorrection_CPU(cv::Mat& matSrcImage)
     pUVBufResult = NULL;
 
     return rgbImgResult;    
+}
+
+void CBarrelCorrection::BarrelCorrection_CPU_2(std::string strFilePath)
+{
+    int inputWidth = 2048;
+    int inputHeight = 1536;
+    int inputPitchY = 2048;
+    int inputPitchUV = 2048;
+    int outputWidth = 1920;
+    int outputHeight = 1080;
+    int outputPitchY = 1920;
+    int outputPitchUV = 1920;    
+
+    unsigned char* pInputBuffer = (unsigned char*)malloc(inputPitchY * inputHeight * 3 / 2);
+    unsigned char* pOutputBuffer = (unsigned char*)malloc(outputPitchY * outputHeight * 3 / 2);
+    memset(pInputBuffer, 0, sizeof(unsigned char) * inputPitchY * inputHeight * 3 / 2);
+    memset(pOutputBuffer, 0, sizeof(unsigned char) * outputPitchY * outputHeight * 3 / 2);
+    if ((NULL == pInputBuffer) || (NULL == pOutputBuffer))
+    {
+        printf("malloc failed!!!\n");
+    }
+
+    char inputFilePath[200] = { "./Resource/face_1.yuv" };
+    char outputFilePath[200] = { "./output_1920.yuv" };
+    FILE* pfInputFileOpen = NULL;
+    FILE* pfOutputFileOpen = NULL;
+
+    pfInputFileOpen = fopen(inputFilePath, "rb");
+    pfOutputFileOpen = fopen(outputFilePath, "wb");
+    if ((NULL == pfInputFileOpen) || (NULL == pfOutputFileOpen))
+    {
+        printf("open failed!!!\n");
+    }
+
+    void* pAlgHandle = NULL;
+    EMISPAlgType emISPAlgType = BARRELCORRECTION;
+    TISPVersionInfo tISPVersionInfo;
+    void* ptOpen = NULL;        
+
+    TBarrelCorrectionOpen tBarrelCorrectionOpen;
+
+    tBarrelCorrectionOpen.tBCOpen.emFormat = IMGALG_NV12;
+    tBarrelCorrectionOpen.tBCOpen.u32InputWidth = inputWidth;
+    tBarrelCorrectionOpen.tBCOpen.u32InputHeight = inputHeight;
+    tBarrelCorrectionOpen.tBCOpen.u32InputPitchY = inputPitchY;
+    tBarrelCorrectionOpen.tBCOpen.u32InputPitchUV = inputPitchUV;
+    tBarrelCorrectionOpen.tBCOpen.u32OutputWidth = outputWidth;
+    tBarrelCorrectionOpen.tBCOpen.u32OutputHeight = outputHeight;
+
+    tBarrelCorrectionOpen.tBCOpen.u32Ratio1 = 1420;
+    tBarrelCorrectionOpen.tBCOpen.u32Ratio2 = 130;
+    tBarrelCorrectionOpen.flag = 0;
+
+    ptOpen = (void*)(&tBarrelCorrectionOpen);
+
+    if (ISPVideoAlgInit() != SUCCESS_GPUALG)
+    {
+        printf("init error!\n");
+        fclose(pfInputFileOpen);
+        fclose(pfOutputFileOpen);
+        free(pInputBuffer);
+        return;
+    }
+
+    GetISPVersionInfo(emISPAlgType, &tISPVersionInfo);
+
+    printf("=========>begin to open!\n");
+    if (ISPVideoAlgOpen(&pAlgHandle, emISPAlgType, ptOpen) != SUCCESS_GPUALG)
+    {
+        printf("open error!\n");
+        ISPVideoAlgRelease();
+        fclose(pfInputFileOpen);
+        fclose(pfOutputFileOpen);
+        free(pInputBuffer);
+        return;
+    }
+
+    TISPImageInfo tInputISPImageInfo;
+    TISPImageInfo tOutputISPImgeInfo;
+
+    tInputISPImageInfo.tImageBuffer[0].pu8ImageDataY = pInputBuffer;
+    tInputISPImageInfo.tImageBuffer[0].pu8ImageDataU = pInputBuffer + inputPitchY * inputHeight;
+    tInputISPImageInfo.tImageBuffer[0].emFormat = IMGALG_NV12;
+    tInputISPImageInfo.tImageBuffer[0].u32Width = inputWidth;
+    tInputISPImageInfo.tImageBuffer[0].u32Height = inputHeight;
+    tInputISPImageInfo.tImageBuffer[0].u32PitchY = inputWidth;
+    tInputISPImageInfo.tImageBuffer[0].u32PitchUV = inputWidth;
+    tInputISPImageInfo.pvImageInfo = NULL;
+
+    tOutputISPImgeInfo.tImageBuffer[0].pu8ImageDataY = pOutputBuffer;
+    tOutputISPImgeInfo.tImageBuffer[0].pu8ImageDataU = pOutputBuffer + outputPitchY * outputHeight;
+    tOutputISPImgeInfo.tImageBuffer[0].u32Width = outputWidth;
+    tOutputISPImgeInfo.tImageBuffer[0].u32Height = outputHeight;
+    tOutputISPImgeInfo.tImageBuffer[0].u32PitchY = outputPitchY;
+    tOutputISPImgeInfo.tImageBuffer[0].u32PitchUV = outputPitchUV;
+
+
+    printf("=========>begin to fread!\n");
+    fread(pInputBuffer, 1, inputPitchY * inputHeight * 3 / 2, pfInputFileOpen);
+
+    printf("=========>begin to process!\n");
+    if (ISPVideoAlgProcess(pAlgHandle, emISPAlgType, &tInputISPImageInfo, &tOutputISPImgeInfo) != SUCCESS_GPUALG)
+    {
+        printf("ISPVideoAlgProcess error!\n");
+        ISPVideoAlgClose(pAlgHandle, emISPAlgType);
+        ISPVideoAlgRelease();
+        fclose(pfInputFileOpen);
+        fclose(pfOutputFileOpen);
+        free(pInputBuffer);
+        return;
+    }
+
+    // 生产YUV文件
+    printf("u32Height = %d, u32PitchY = %d, u32Width = %d\n", tOutputISPImgeInfo.tImageBuffer[0].u32Height, tOutputISPImgeInfo.tImageBuffer[0].u32PitchY, tOutputISPImgeInfo.tImageBuffer[0].u32Width);
+    for (int k = 0; k < tOutputISPImgeInfo.tImageBuffer[0].u32Height; k++)
+    {
+        fwrite(tOutputISPImgeInfo.tImageBuffer[0].pu8ImageDataY + k*tOutputISPImgeInfo.tImageBuffer[0].u32PitchY, 1, tOutputISPImgeInfo.tImageBuffer[0].u32Width, pfOutputFileOpen);
+    }
+
+    for (int k = 0; k < tOutputISPImgeInfo.tImageBuffer[0].u32Height / 2; k++)
+    {
+        fwrite(tOutputISPImgeInfo.tImageBuffer[0].pu8ImageDataU + k*tOutputISPImgeInfo.tImageBuffer[0].u32PitchUV, 1, tOutputISPImgeInfo.tImageBuffer[0].u32Width, pfOutputFileOpen);
+    }
+
+    printf("=========>begin to close!\n");
+    ISPVideoAlgClose(pAlgHandle, emISPAlgType);
+    ISPVideoAlgRelease();
+    fclose(pfInputFileOpen);
+    fclose(pfOutputFileOpen);
+    free(pInputBuffer);
+    free(pfOutputFileOpen);
+
 }
