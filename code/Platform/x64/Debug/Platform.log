@@ -1,102 +1,15 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
-  Moc'ing MainForm.h...
-  Moc'ing c_show_thread.h...
-  Moc'ing q_image_show.h...
-  Rcc'ing MainWindow.qrc...
-  Uic'ing MainWindow.ui...
-  RCC: Warning: No resources in 'C:\Users\keda\Desktop\Git\Platform\code\Platform\MainWindow.qrc'.
-  AMHE_run.c
-  hist_eq.c
-  hist_mean.c
-  img_base.c
-  img_hist.c
-  main_run.c
-  makeLUT.c
-  max.c
-  min.c
-  modified_hist.c
-  new_hist.c
-  OstuCompute.c
-AMHE\main_run.c(20): warning C4133: “函数”: 从“int *”到“double *”的类型不兼容
-AMHE\main_run.c(21): warning C4133: “函数”: 从“int *”到“double *”的类型不兼容
-AMHE\main_run.c(21): warning C4020: “AMHE_run”: 实参太多
-  CPUBarrelCorrection.c
   BC_1920_1080.c
-AMHE\modified_hist.c(15): warning C4133: “函数”: 从“double *”到“int *”的类型不兼容
-AMHE\modified_hist.c(16): warning C4133: “函数”: 从“double *”到“int *”的类型不兼容
-BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c(1683): warning C4312: “类型转换”: 从“int”转换到更大的“float *”
-BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c(1685): warning C4312: “类型转换”: 从“int”转换到更大的“float *”
-BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c(1687): warning C4312: “类型转换”: 从“int”转换到更大的“float *”
-BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c(1689): warning C4312: “类型转换”: 从“int”转换到更大的“float *”
+BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c(1678): warning C4312: “类型转换”: 从“int”转换到更大的“float *”
+BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c(1680): warning C4312: “类型转换”: 从“int”转换到更大的“float *”
+BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c(1682): warning C4312: “类型转换”: 从“int”转换到更大的“float *”
+BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c(1684): warning C4312: “类型转换”: 从“int”转换到更大的“float *”
+BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c(2032): warning C4312: “类型转换”: 从“int”转换到更大的“float *”
 BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c(2037): warning C4312: “类型转换”: 从“int”转换到更大的“float *”
-BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c(2042): warning C4312: “类型转换”: 从“int”转换到更大的“float *”
-BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c(2072): warning C4312: “类型转换”: 从“int”转换到更大的“unsigned int *”
-BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c(2073): warning C4312: “类型转换”: 从“int”转换到更大的“unsigned int *”
-BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c(2074): warning C4312: “类型转换”: 从“int”转换到更大的“unsigned int *”
-BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c(2075): warning C4312: “类型转换”: 从“int”转换到更大的“unsigned char *”
-BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c(2076): warning C4312: “类型转换”: 从“int”转换到更大的“unsigned int *”
-c:\users\keda\desktop\git\platform\code\platform\barrelcorrection_cpu\module\barrelcorrection\bc_1920_1080.c(1937): warning C4700: 使用了未初始化的局部变量“w”
-  BarrelProcess.cpp
-  common_func.cpp
-  VirtualStitch.cpp
-  ISPCPUVideoAlg.cpp
-  c_barrel_correction.cpp
-BarrelCorrection_CPU\ISPCPUVideoAlg.cpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-  c_show_thread.cpp
-  main.cpp
-  MainForm.cpp
-  q_image_show.cpp
-  c_transform.cpp
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/mat.hpp(2586): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 BarrelCorrection\VirtualStitch.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/mat.hpp(2586): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 BarrelCorrection\BarrelProcess.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/mat.hpp(2586): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 c_barrel_correction.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/persistence.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 BarrelCorrection\VirtualStitch.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/persistence.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 c_barrel_correction.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/persistence.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 BarrelCorrection\BarrelProcess.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 BarrelCorrection\VirtualStitch.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 c_barrel_correction.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 BarrelCorrection\VirtualStitch.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 BarrelCorrection\BarrelProcess.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 c_barrel_correction.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 BarrelCorrection\BarrelProcess.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/imgproc.hpp(592): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 c_barrel_correction.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/mat.hpp(2586): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 c_show_thread.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/mat.hpp(2586): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 Utils\c_transform.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/persistence.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 c_show_thread.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 c_show_thread.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/persistence.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 Utils\c_transform.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 c_show_thread.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/imgproc.hpp(592): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 c_show_thread.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 Utils\c_transform.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 Utils\c_transform.cpp)
-  moc_MainForm.cpp
-  moc_c_show_thread.cpp
-  moc_q_image_show.cpp
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/mat.hpp(2586): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 q_image_show.cpp)
-  qrc_MainWindow.cpp
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/persistence.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 q_image_show.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 q_image_show.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 q_image_show.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/mat.hpp(2586): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_c_show_thread.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/mat.hpp(2586): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 MainForm.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/imgproc.hpp(592): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 q_image_show.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/persistence.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_c_show_thread.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/persistence.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 MainForm.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/mat.hpp(2586): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 main.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_c_show_thread.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 MainForm.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_c_show_thread.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/persistence.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 main.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 MainForm.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 main.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 main.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/imgproc.hpp(592): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 MainForm.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/mat.hpp(2586): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_MainForm.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/mat.hpp(2586): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_q_image_show.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/persistence.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_MainForm.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_MainForm.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/persistence.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_q_image_show.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_MainForm.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_q_image_show.cpp)
-C:\Users\keda\Desktop\Git\Platform\code\include\opencv2/core/utility.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 .\GeneratedFiles\Debug\moc_q_image_show.cpp)
+BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c(2067): warning C4312: “类型转换”: 从“int”转换到更大的“unsigned int *”
+BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c(2068): warning C4312: “类型转换”: 从“int”转换到更大的“unsigned int *”
+BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c(2069): warning C4312: “类型转换”: 从“int”转换到更大的“unsigned int *”
+BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c(2070): warning C4312: “类型转换”: 从“int”转换到更大的“unsigned char *”
+BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c(2071): warning C4312: “类型转换”: 从“int”转换到更大的“unsigned int *”
+c:\users\keda\desktop\git\platform\code\platform\barrelcorrection_cpu\module\barrelcorrection\bc_1920_1080.c(1932): warning C4700: 使用了未初始化的局部变量“w”
   Platform.vcxproj -> C:\Users\keda\Desktop\Git\Platform\code\Platform\..\..\bin\Platform.exe

@@ -1,8 +1,7 @@
 #define PC
-#define NULL 0
 //#define ARM
 
-// 头文件
+// Header file
 #ifdef ARM
 #define _GNU_SOURCE
 #include <sched.h>
@@ -15,11 +14,6 @@
 #include <arm_neon.h>
 #include <sys/prctl.h>
 #endif
-
-#ifdef PC
-#include <time.h>
-#endif
-
 #include "CPUBC.h"
 #include "ISP_Alglog.h"
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -50,7 +44,8 @@ float* coordUV_m1B = NULL ;
 float* coordY_m2B = NULL ;
 float* coordUV_m2B = NULL ;
 
-// 多线程全局变量
+
+// Variables of pthread
 #ifdef ARM
 pthread_t g_hThread1B;
 pthread_t g_hThread2B;
@@ -196,7 +191,7 @@ void bc_convertB()
 #endif
 
 
-// ARM计时
+// Computer time
 #ifdef ARM
 long diffB(struct timeval start, struct timeval end)
 {
@@ -215,7 +210,7 @@ long diffB(struct timeval start, struct timeval end)
 }
 #endif
 
-// 多线程双线性插值
+// Billinear interpolation(pthread)
 #ifdef ARM
 void bc_convert0B ()
 {
@@ -2122,6 +2117,7 @@ int BarrelCorrectOpenB(TPlatformObject* ptPlatformObject, TBarrelCorrectionObjec
     }
 #endif
 
+// Variables of pthread
 #ifdef ARM
 	g1B_exit_flag = 0;
 	g2B_exit_flag = 0;
@@ -2215,6 +2211,7 @@ int BarrelCorrectOpenB(TPlatformObject* ptPlatformObject, TBarrelCorrectionObjec
 int BarrelCorrectProcessB(TPlatformObject* ptPlatformObject, TBCObject* ptBCObject,
 							TISPImageInfo* ptBarrelInput, TISPImageInfo* ptBarrelOutput)
 {
+// Computer time
 #ifdef ARM
 	struct timeval time1, time2;
 	struct timezone tzone;
@@ -2232,6 +2229,8 @@ int BarrelCorrectProcessB(TPlatformObject* ptPlatformObject, TBCObject* ptBCObje
 	BCYDataB = ptBarrelOutput->tImageBuffer[0].pu8ImageDataY;
 	BCUVDataB = ptBarrelOutput->tImageBuffer[0].pu8ImageDataU;
 
+
+// Process(ARM)
 #ifdef ARM
 	BCDataThread1BOUTBool = 0;
 	BCDataThread2BOUTBool = 0;
@@ -2314,6 +2313,7 @@ int BarrelCorrectProcessB(TPlatformObject* ptPlatformObject, TBCObject* ptBCObje
 	ISPprintLog("[[[[[MAIN ALL END]]]]]\n");
 #endif
 
+// Process(PC)
 #ifdef PC
     bc_convertB();
 #endif
@@ -2325,6 +2325,7 @@ int BarrelCorrectProcessB(TPlatformObject* ptPlatformObject, TBCObject* ptBCObje
 	//ptBarrelOutput->tImageBuffer[0].u32PitchY= 1664;
 	//ptBarrelOutput->tImageBuffer[0].u32PitchUV= 1664;
 
+// Computer time
 #ifdef ARM
 	gettimeofday(&time2, &tzone);
 	total_time_single = diffB(time1, time2) / 1000.0;
@@ -2336,7 +2337,8 @@ int BarrelCorrectProcessB(TPlatformObject* ptPlatformObject, TBCObject* ptBCObje
 
 int BarrelCorrectCloseB(TPlatformObject* ptPlatformObject, TBCObject* ptBCObject)
 {
-// 释放多线程资源
+
+// Variables of pthread
 #ifdef ARM
 	int ret = 0;
 
@@ -2510,6 +2512,7 @@ int BarrelCorrectCloseB(TPlatformObject* ptPlatformObject, TBCObject* ptBCObject
 	coordUV_m1B = NULL;
 	coordY_m2B = NULL;
 	coordUV_m2B = NULL;
+
 
 	return 0;
 }

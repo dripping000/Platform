@@ -128,8 +128,8 @@
     <ClCompile Include="BarrelCorrection\BarrelProcess.cpp" />
     <ClCompile Include="BarrelCorrection\common_func.cpp" />
     <ClCompile Include="BarrelCorrection\VirtualStitch.cpp" />
-    <ClCompile Include="BarrelCorrection_CPU\CPUBarrelCorrection.c" />
     <ClCompile Include="BarrelCorrection_CPU\ISPCPUVideoAlg.cpp" />
+    <ClCompile Include="BarrelCorrection_CPU\module\BarrelCorrection\BarrelCorrection.c" />
     <ClCompile Include="BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c" />
     <ClCompile Include="c_barrel_correction.cpp" />
     <ClCompile Include="c_show_thread.cpp" />
@@ -152,7 +152,6 @@
     <QtMoc Include="q_image_show.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BarrelCorrection_CPU\CPUBarrelCorrection.h" />
     <ClInclude Include="BarrelCorrection_CPU\include\BC.h" />
     <ClInclude Include="BarrelCorrection_CPU\include\CL\cl.h" />
     <ClInclude Include="BarrelCorrection_CPU\include\CL\cl.hpp" />

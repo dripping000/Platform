@@ -28,34 +28,35 @@ int BarrelCorrectionOpen(TPlatformObject* ptPlatformObject, TBarrelCorrectionObj
 	int outputwidth_vs = ptBarrelCorrectionOpen->tBC_VSOpen.u32OutputWidth;
 	int outputheight_vs = ptBarrelCorrectionOpen->tBC_VSOpen.u32OutputHeight;
 
-    
-    if (ptBarrelCorrectionObject->flag == 0)
-    {
-        if ((2048 == inputwidth) && (1536 == inputheight) && (2048 == outputwidth) && (1536 == outputheight))
-        {
-            /*result = BarrelCorrectOpenA(ptPlatformObject, ptBarrelCorrectionObject,
-                &ptBarrelCorrectionObject->tBCObject, &ptBarrelCorrectionOpen->tBCOpen);*/
-        }
-        else if ((2048 == inputwidth) && (1536 == inputheight) && (1920 == outputwidth) && (1080 == outputheight))
-        {
-            result = BarrelCorrectOpenB(ptPlatformObject, ptBarrelCorrectionObject,
-                &ptBarrelCorrectionObject->tBCObject, &ptBarrelCorrectionOpen->tBCOpen);
-        }
-        else if ((2048 == inputwidth) && (1536 == inputheight) && (1600 == outputwidth) && (1200 == outputheight))
-        {
-            /*result = BarrelCorrectOpenC(ptPlatformObject, ptBarrelCorrectionObject,
-                &ptBarrelCorrectionObject->tBCObject, &ptBarrelCorrectionOpen->tBCOpen);*/
-        }
-        else
-        {
-            result = BarrelCorrectOpenB(ptPlatformObject, ptBarrelCorrectionObject,
-                &ptBarrelCorrectionObject->tBCObject, &ptBarrelCorrectionOpen->tBCOpen);
-            ISPprintLog("==============>BCOpen====>default!!!\n");
-        }
+	if (ptBarrelCorrectionObject->flag == 0)
+	{
+
+		if( (2048 == inputwidth)&&(1536==inputheight)&&(2048 ==outputwidth)&&(1536==outputheight))
+		{
+		 	/*result = BarrelCorrectOpenA(ptPlatformObject,ptBarrelCorrectionObject,
+			&ptBarrelCorrectionObject->tBCObject, &ptBarrelCorrectionOpen->tBCOpen);*/
+		}
+		else if ( (2048 == inputwidth)&&(1536==inputheight)&&(1920 ==outputwidth)&&(1080==outputheight))
+		{
+			 result = BarrelCorrectOpenB(ptPlatformObject,ptBarrelCorrectionObject,
+			&ptBarrelCorrectionObject->tBCObject, &ptBarrelCorrectionOpen->tBCOpen);
+		}
+		else if ( (2048 == inputwidth)&&(1536==inputheight)&&(1600 ==outputwidth)&&(1200==outputheight))
+		{
+		 	/*result = BarrelCorrectOpenC(ptPlatformObject,ptBarrelCorrectionObject,
+			&ptBarrelCorrectionObject->tBCObject, &ptBarrelCorrectionOpen->tBCOpen);*/
+		}
+		else
+		{
+			 result = BarrelCorrectOpenB(ptPlatformObject,ptBarrelCorrectionObject,
+			&ptBarrelCorrectionObject->tBCObject, &ptBarrelCorrectionOpen->tBCOpen);
+			 ISPprintLog("==============>BCOpen====>default!!!\n");
+		}
 
 		printf("==============>BCOpen====>inputwidth:%d,inputheight:%d,outputwidth:%d,outputheight:%d\n",inputwidth,inputheight,outputwidth,outputheight);
 
 	}
+#if 0
 	else
 	{
 
@@ -80,6 +81,7 @@ int BarrelCorrectionOpen(TPlatformObject* ptPlatformObject, TBarrelCorrectionObj
 		printf("==============>BC_VSOpen====>inputwidth_vs:%d,inputheight_vs:%d,outputwidth_vs:%d,outputheight_vs:%d\n",inputwidth_vs,inputheight_vs,outputwidth_vs,outputheight_vs);
 
 	}
+#endif
 
 	return result;
 }
@@ -104,7 +106,7 @@ int BarrelCorrectionProcess(TPlatformObject* ptPlatformObject, TBarrelCorrection
 
 		if( (2048 == inputwidth)&&(1536==inputheight)&&(2048 ==outputwidth)&&(1536==outputheight))
 		{
-			result = BarrelCorrectProcessA(ptPlatformObject, &ptBarrelCorrectionObject->tBCObject, ptBarrelInput, ptBarrelOutput);
+			//result = BarrelCorrectProcessA(ptPlatformObject, &ptBarrelCorrectionObject->tBCObject, ptBarrelInput, ptBarrelOutput);
 		}
 		else if ( (2048 == inputwidth)&&(1536==inputheight)&&(1920 ==outputwidth)&&(1080==outputheight))
 		{
@@ -112,17 +114,18 @@ int BarrelCorrectionProcess(TPlatformObject* ptPlatformObject, TBarrelCorrection
 		}
 		else if ( (2048 == inputwidth)&&(1536==inputheight)&&(1600 ==outputwidth)&&(1200==outputheight))
 		{
-			result = BarrelCorrectProcessC(ptPlatformObject, &ptBarrelCorrectionObject->tBCObject, ptBarrelInput, ptBarrelOutput);
+			//result = BarrelCorrectProcessC(ptPlatformObject, &ptBarrelCorrectionObject->tBCObject, ptBarrelInput, ptBarrelOutput);
 		}
 		else
 		{
-			result = BarrelCorrectProcess(ptPlatformObject, &ptBarrelCorrectionObject->tBCObject, ptBarrelInput, ptBarrelOutput);
+			result = BarrelCorrectProcessB(ptPlatformObject, &ptBarrelCorrectionObject->tBCObject, ptBarrelInput, ptBarrelOutput);
 			ISPprintLog("==============>BCProcess====>default!!!\n");
 		}
 		ISPprintLog("==============>BCProcess====>inputwidth:%d,inputheight:%d,outputwidth:%d,outputheight:%d\n",inputwidth,inputheight,outputwidth,outputheight);
 
 
 	}
+#if 0
 	else
 	{
 		if( (2048 == inputwidth_vs)&&(1536==inputheight_vs)&&(2048 ==outputwidth_vs)&&(1536==outputheight_vs))
@@ -143,6 +146,7 @@ int BarrelCorrectionProcess(TPlatformObject* ptPlatformObject, TBarrelCorrection
 		ISPprintLog("==============>BC_VSProcess====>inputwidth_vs:%d,inputheight_vs:%d,outputwidth_vs:%d,outputheight_vs:%d\n",inputwidth_vs,inputheight_vs,outputwidth_vs,outputheight_vs);
 
 	}
+#endif
 
 	return result;
 }
@@ -169,7 +173,7 @@ int BarrelCorrectionClose(TPlatformObject* ptPlatformObject, TBarrelCorrectionOb
 
 		if( (2048 == inputwidth)&&(1536==inputheight)&&(2048 ==outputwidth)&&(1536==outputheight))
 		{
-			result = BarrelCorrectCloseA(ptPlatformObject, &ptBarrelCorrectionObject->tBCObject);
+			//result = BarrelCorrectCloseA(ptPlatformObject, &ptBarrelCorrectionObject->tBCObject);
 		}
 		else if ( (2048 == inputwidth)&&(1536==inputheight)&&(1920 ==outputwidth)&&(1080==outputheight))
 		{
@@ -177,11 +181,11 @@ int BarrelCorrectionClose(TPlatformObject* ptPlatformObject, TBarrelCorrectionOb
 		}
 		else if ( (2048 == inputwidth)&&(1536==inputheight)&&(1600 ==outputwidth)&&(1200==outputheight))
 		{
-			result = BarrelCorrectCloseC(ptPlatformObject, &ptBarrelCorrectionObject->tBCObject);
+			//result = BarrelCorrectCloseC(ptPlatformObject, &ptBarrelCorrectionObject->tBCObject);
 		}
 		else
 		{
-			result = BarrelCorrectClose(ptPlatformObject, &ptBarrelCorrectionObject->tBCObject);
+			result = BarrelCorrectCloseB(ptPlatformObject, &ptBarrelCorrectionObject->tBCObject);
 			ISPprintLog("==============>BCClose====>default!!!\n");
 		}
 		printf("==============>BCClose====>inputwidth:%d,inputheight:%d,outputwidth:%d,outputheight:%d\n",inputwidth,inputheight,outputwidth,outputheight);
@@ -189,6 +193,7 @@ int BarrelCorrectionClose(TPlatformObject* ptPlatformObject, TBarrelCorrectionOb
 
 
 	}
+#if 0
 	else
 	{
 		if( (2048 == inputwidth_vs)&&(1536==inputheight_vs)&&(2048 ==outputwidth_vs)&&(1536==outputheight_vs))
@@ -209,6 +214,7 @@ int BarrelCorrectionClose(TPlatformObject* ptPlatformObject, TBarrelCorrectionOb
 
 
 	}
+#endif
 
 	return result;
 }
