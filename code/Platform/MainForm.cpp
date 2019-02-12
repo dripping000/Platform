@@ -119,6 +119,8 @@ void MainWindow::BarrelCorrectionTest()
     cv::resize(matSrcImage, matSrcImageShow, cv::Size(SrcWidth, SrcHeight));
     cv::imshow("matSrcImageShow", matSrcImageShow);
 
+    this->m_cBarrelCorrection.BarrelCorrection_CPU_2("");
+
     cv::Mat rgbImgResult;
     rgbImgResult = this->m_cBarrelCorrection.BarrelCorrection_CPU(matSrcImageShow);
     cv::imshow("rgbimg", rgbImgResult);

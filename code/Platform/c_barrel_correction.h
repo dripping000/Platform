@@ -6,6 +6,14 @@
 
 #include "c_transform.h"
 
+// BarrelCorrection_CPU
+#include "CPUBCCommon.h"
+#include "CPUCommon.h"
+#include "CPUBC.h"
+#include "CPUBarrelCorrection.h"
+
+#include "ISPVideoAlg.h"
+
 class CBarrelCorrection
 {
 public:
@@ -43,6 +51,11 @@ public:
     // CPU»û±ä½ÃÕýYUV
     cv::Mat BarrelCorrection_CPU(cv::Mat& matSrcImage);
     void BarrelCorrection_CPU_2(std::string strFilePath);
+
+    void imreadNV12(unsigned char* pu8Y, unsigned char* pu8UV, int nWidth, int nHeight, char *pchFilePath);
+    void imshowNV12(unsigned char* pu8Y, unsigned char* pu8UV, int nWidth, int nHeight);
+    void imwriteNV12(unsigned char* pu8Y, unsigned char* pu8UV, int nWidth, int nHeight, char *pchFilePath);
+    void Mat2NV12(cv::Mat matSrcImage, unsigned char *pu8Y, unsigned char *pu8UV, int nWidth, int nHeight);
 
 
 private:

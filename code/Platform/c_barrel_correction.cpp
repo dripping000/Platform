@@ -4,14 +4,6 @@
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
 
-// BarrelCorrection_CPU
-#include "CPUBCCommon.h"
-#include "CPUCommon.h"
-#include "CPUBC.h"
-#include "CPUBarrelCorrection.h"
-
-#include "ISPVideoAlg.h"
-
 //Debug
 #include "debug_log.h"
 
@@ -313,7 +305,6 @@ cv::Mat CBarrelCorrection::BarrelCorrection_CPU(cv::Mat& matSrcImage)
             pYUVBufTmp++;
         }
     }
-
     ////////////////////////////////////////////////////////////////////////////////
     int ResultWidth = 1920;
     int ResultHeight = 1080;    
@@ -421,12 +412,14 @@ cv::Mat CBarrelCorrection::BarrelCorrection_CPU(cv::Mat& matSrcImage)
     return rgbImgResult;    
 }
 
+
 void CBarrelCorrection::BarrelCorrection_CPU_2(std::string strFilePath)
 {
     int inputWidth = 2048;
     int inputHeight = 1536;
     int inputPitchY = 2048;
     int inputPitchUV = 2048;
+
     int outputWidth = 1920;
     int outputHeight = 1080;
     int outputPitchY = 1920;
@@ -441,17 +434,14 @@ void CBarrelCorrection::BarrelCorrection_CPU_2(std::string strFilePath)
         printf("malloc failed!!!\n");
     }
 
-    char inputFilePath[200] = { "./Resource/face_1.yuv" };
-    char outputFilePath[200] = { "./output_1920.yuv" };
-    FILE* pfInputFileOpen = NULL;
-    FILE* pfOutputFileOpen = NULL;
 
-    pfInputFileOpen = fopen(inputFilePath, "rb");
-    pfOutputFileOpen = fopen(outputFilePath, "wb");
-    if ((NULL == pfInputFileOpen) || (NULL == pfOutputFileOpen))
-    {
-        printf("open failed!!!\n");
-    }
+    // 生成300W yuv图像
+    cv::Mat matSrcImageTmp = cv::imread("./Resource/1543555832_491642.jpg");
+    cv::resize(matSrcImageTmp, matSrcImageTmp, cv::Size(inputWidth, inputHeight));
+
+    Mat2NV12(matSrcImageTmp, pInputBuffer, pInputBuffer + inputPitchY * inputHeight, inputWidth, inputHeight);
+    imshowNV12(pInputBuffer, pInputBuffer + inputPitchY * inputHeight, inputWidth, inputHeight);
+    imwriteNV12(pInputBuffer, pInputBuffer + inputPitchY * inputHeight, inputWidth, inputHeight, "./Resource/srcYUVN12.yuv");
 
     void* pAlgHandle = NULL;
     EMISPAlgType emISPAlgType = BARRELCORRECTION;
@@ -471,15 +461,21 @@ void CBarrelCorrection::BarrelCorrection_CPU_2(std::string strFilePath)
     tBarrelCorrectionOpen.tBCOpen.u32Ratio1 = 1420;
     tBarrelCorrectionOpen.tBCOpen.u32Ratio2 = 130;
     tBarrelCorrectionOpen.flag = 0;
+    //////////////////////////////////////////////////////////////////////////
+    tBarrelCorrectionOpen.tBCOpen.flagROIMode = 0;
+    tBarrelCorrectionOpen.tBCOpen.f32w = 0.8;
+    tBarrelCorrectionOpen.tBCOpen.f32h = 0.6;
+    tBarrelCorrectionOpen.tBCOpen.f32x0 = 0;
+    tBarrelCorrectionOpen.tBCOpen.f32y0 = 0;
+    //////////////////////////////////////////////////////////////////////////
 
     ptOpen = (void*)(&tBarrelCorrectionOpen);
 
     if (ISPVideoAlgInit() != SUCCESS_GPUALG)
     {
         printf("init error!\n");
-        fclose(pfInputFileOpen);
-        fclose(pfOutputFileOpen);
         free(pInputBuffer);
+        free(pOutputBuffer);
         return;
     }
 
@@ -490,9 +486,8 @@ void CBarrelCorrection::BarrelCorrection_CPU_2(std::string strFilePath)
     {
         printf("open error!\n");
         ISPVideoAlgRelease();
-        fclose(pfInputFileOpen);
-        fclose(pfOutputFileOpen);
         free(pInputBuffer);
+        free(pOutputBuffer);
         return;
     }
 
@@ -517,7 +512,9 @@ void CBarrelCorrection::BarrelCorrection_CPU_2(std::string strFilePath)
 
 
     printf("=========>begin to fread!\n");
-    fread(pInputBuffer, 1, inputPitchY * inputHeight * 3 / 2, pfInputFileOpen);
+    //fread(pInputBuffer, 1, inputPitchY * inputHeight * 3 / 2, pfInputFileOpen);
+    imreadNV12(pInputBuffer, pInputBuffer + inputPitchY * inputHeight, inputPitchY, inputHeight, "./Resource/srcYUVN12.yuv");
+    imshowNV12(pInputBuffer, pInputBuffer + inputPitchY * inputHeight, inputWidth, inputHeight);    
 
     printf("=========>begin to process!\n");
     if (ISPVideoAlgProcess(pAlgHandle, emISPAlgType, &tInputISPImageInfo, &tOutputISPImgeInfo) != SUCCESS_GPUALG)
@@ -525,30 +522,163 @@ void CBarrelCorrection::BarrelCorrection_CPU_2(std::string strFilePath)
         printf("ISPVideoAlgProcess error!\n");
         ISPVideoAlgClose(pAlgHandle, emISPAlgType);
         ISPVideoAlgRelease();
-        fclose(pfInputFileOpen);
-        fclose(pfOutputFileOpen);
         free(pInputBuffer);
+        free(pOutputBuffer);
         return;
     }
 
     // 生产YUV文件
-    printf("u32Height = %d, u32PitchY = %d, u32Width = %d\n", tOutputISPImgeInfo.tImageBuffer[0].u32Height, tOutputISPImgeInfo.tImageBuffer[0].u32PitchY, tOutputISPImgeInfo.tImageBuffer[0].u32Width);
-    for (int k = 0; k < tOutputISPImgeInfo.tImageBuffer[0].u32Height; k++)
-    {
-        fwrite(tOutputISPImgeInfo.tImageBuffer[0].pu8ImageDataY + k*tOutputISPImgeInfo.tImageBuffer[0].u32PitchY, 1, tOutputISPImgeInfo.tImageBuffer[0].u32Width, pfOutputFileOpen);
-    }
-
-    for (int k = 0; k < tOutputISPImgeInfo.tImageBuffer[0].u32Height / 2; k++)
-    {
-        fwrite(tOutputISPImgeInfo.tImageBuffer[0].pu8ImageDataU + k*tOutputISPImgeInfo.tImageBuffer[0].u32PitchUV, 1, tOutputISPImgeInfo.tImageBuffer[0].u32Width, pfOutputFileOpen);
-    }
+    imwriteNV12(tOutputISPImgeInfo.tImageBuffer[0].pu8ImageDataY, tOutputISPImgeInfo.tImageBuffer[0].pu8ImageDataU, 
+        tOutputISPImgeInfo.tImageBuffer[0].u32Width, tOutputISPImgeInfo.tImageBuffer[0].u32Height,
+        "./Resource/tmp.yuv");
 
     printf("=========>begin to close!\n");
     ISPVideoAlgClose(pAlgHandle, emISPAlgType);
     ISPVideoAlgRelease();
-    fclose(pfInputFileOpen);
-    fclose(pfOutputFileOpen);
-    free(pInputBuffer);
-    free(pfOutputFileOpen);
 
+    free(pInputBuffer);
+    free(pOutputBuffer);
+}
+
+
+void CBarrelCorrection::imreadNV12(unsigned char* pu8Y, unsigned char* pu8UV, int nWidth, int nHeight, char *pchFilePath)
+{
+    FILE* pfInputFileOpen = NULL;
+    pfInputFileOpen = fopen(pchFilePath, "rb");
+    if (NULL == pfInputFileOpen)
+    {
+        printf("%s: Couldn't open file: %s\n", __FUNCTION__, pchFilePath);
+    }
+
+    printf("u32Height = %d, u32PitchY = %d, u32Width = %d\n", nHeight, nWidth, nWidth);
+    fread(pu8Y, 1, nWidth * nHeight * 3 / 2, pfInputFileOpen);
+
+    fclose(pfInputFileOpen);
+}
+
+
+void CBarrelCorrection::imshowNV12(unsigned char* pu8Y, unsigned char* pu8UV, int nWidth, int nHeight)
+{
+    // NV12--->YUV
+    unsigned char* pYUVBufResult = NULL;
+    int ResultWidth = nWidth;
+    int ResultHeight = nHeight;
+    pYUVBufResult = (unsigned char*)malloc(ResultWidth * ResultHeight * 3 / 2 * sizeof(unsigned char));
+
+    unsigned char* pYUVBufTmp = NULL;
+    unsigned char* pYBufTmp = NULL;
+    unsigned char* pUVBufTmp = NULL;
+    
+    pYUVBufTmp = pYUVBufResult;
+    pYBufTmp = pu8Y;
+    pUVBufTmp = pu8UV;
+
+    for (int i = 0; i < ResultWidth * ResultHeight * 5 / 4; i++)
+    {
+        if (i < ResultWidth * ResultHeight)
+        {
+            *pYUVBufTmp = *pYBufTmp;   // Y
+            pYBufTmp++;
+            pYUVBufTmp++;
+        }
+        else
+        {
+            *pYUVBufTmp = *pUVBufTmp;   //U
+            pUVBufTmp++;
+            *(pYUVBufTmp + ResultWidth * ResultHeight / 4) = *pUVBufTmp;   // V
+            pUVBufTmp++;
+
+            pYUVBufTmp++;
+        }
+    }
+
+    cv::Mat yuvImgResult;
+    yuvImgResult.create(ResultHeight * 3 / 2, ResultWidth, CV_8UC1);
+    memcpy(yuvImgResult.data, pYUVBufResult, ResultWidth * ResultHeight * 3 / 2 * sizeof(unsigned char));
+
+    // YUV--->RGB
+    cv::Mat rgbImgResult;
+    cv::cvtColor(yuvImgResult, rgbImgResult, CV_YUV2BGR_I420);
+
+    // 释放资源
+    free(pYUVBufResult);
+    pYUVBufResult = NULL;
+
+    pYUVBufTmp = NULL;
+    pYBufTmp = NULL;
+    pUVBufTmp = NULL;
+}                                           
+
+
+void CBarrelCorrection::imwriteNV12(unsigned char* pu8Y, unsigned char* pu8UV, int nWidth, int nHeight, char *pchFilePath)
+{
+    FILE* pfOutputFileOpen = NULL;
+    pfOutputFileOpen = fopen(pchFilePath, "wb");
+    if (NULL == pfOutputFileOpen)
+    {
+        printf("%s: Couldn't open file: %s\n", __FUNCTION__, pchFilePath);
+    }
+
+    printf("u32Height = %d, u32PitchY = %d, u32Width = %d\n", nHeight, nWidth, nWidth);
+    for (int k = 0; k < nHeight; k++)
+    {
+        fwrite(pu8Y + k*nWidth, 1, nWidth, pfOutputFileOpen);
+    }
+
+    for (int k = 0; k < nHeight / 2; k++)
+    {
+        fwrite(pu8UV + k*nWidth, 1, nWidth, pfOutputFileOpen);
+    }
+
+    fclose(pfOutputFileOpen);
+}
+
+
+void CBarrelCorrection::Mat2NV12(cv::Mat matSrcImage, unsigned char *pu8Y, unsigned char *pu8UV, int nWidth, int nHeight)
+{
+    cv::Mat yuvImgResult;
+    yuvImgResult.create(nHeight * 3 / 2, nWidth, CV_8UC1);    
+
+    // Mat--->YUV
+    cv::cvtColor(matSrcImage, yuvImgResult, CV_BGR2YUV_I420);
+    
+    unsigned char* pYUVBuf = NULL;
+    pYUVBuf = (unsigned char*)malloc(nWidth * nHeight * 3 / 2 * sizeof(unsigned char));
+    memcpy(pYUVBuf, yuvImgResult.data, nWidth * nHeight * 3 / 2 * sizeof(unsigned char));
+
+    // YUV--->NV12
+    unsigned char* pYUVBufTmp = NULL;
+    unsigned char* pYBufTmp = NULL;
+    unsigned char* pUVBufTmp = NULL;
+
+    pYUVBufTmp = pYUVBuf;
+    pYBufTmp = pu8Y;
+    pUVBufTmp = pu8UV;
+
+    for (int i = 0; i < nWidth * nHeight * 5 / 4; i++)
+    {
+        if (i < nWidth * nHeight)
+        {
+            *pYBufTmp = *pYUVBufTmp;
+            pYBufTmp++;
+            pYUVBufTmp++;
+        }
+        else
+        {
+            *pUVBufTmp = *pYUVBufTmp;
+            pUVBufTmp++;
+            *pUVBufTmp = *(pYUVBufTmp + nWidth * nHeight / 4);
+            pUVBufTmp++;
+
+            pYUVBufTmp++;
+        }
+    }
+
+    // 释放资源
+    free(pYUVBuf);
+    pYUVBuf = NULL;
+
+    pYUVBufTmp = NULL;
+    pYBufTmp = NULL;
+    pUVBufTmp = NULL;
 }

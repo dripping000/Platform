@@ -22,8 +22,8 @@ extern "C"{
 	#ifndef _GNU_SOURCE
 	#define _GNU_SOURCE
 	#endif
-#include <sched.h>
-#include <android/log.h>
+//#include <sched.h>
+//#include <android/log.h>
 #endif
 
 //#include <pthread.h>

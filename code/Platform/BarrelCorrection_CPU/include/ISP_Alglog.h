@@ -10,14 +10,14 @@
 #endif
 
 
-//#define ALGLOG
+#define ALGLOG
 #ifdef ALGLOG
 #define ISPprintLog(...) printf(__VA_ARGS__)
 //#define ISPprintLog(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 #else
 #define ISPprintLog(...) (void)0
 #endif
-// #define RUN_ON_QUALC
+#define RUN_ON_QUALC
 #ifdef RUN_ON_QUALC
 #define ISPprintALog(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 #else
