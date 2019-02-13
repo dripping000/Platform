@@ -102,6 +102,9 @@
     <ClCompile Include="BarrelCorrection_CPU\module\BarrelCorrection\BarrelCorrection.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\c_timer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainForm.h">
@@ -204,6 +207,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BarrelCorrection_CPU\include\ISPVideoAlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\c_timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

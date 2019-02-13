@@ -14,6 +14,9 @@
 
 #include "ISPVideoAlg.h"
 
+// DebugMK
+#include "debug_log.h"
+
 class CBarrelCorrection
 {
 public:
@@ -39,10 +42,9 @@ private:
     
 
 public:
-    void SetK0(float K0);
-    float GetK0();
+    void SetK0K1(float K0, float K1);
 
-    void SetK1(float K1);
+    float GetK0();
     float GetK1();
 
     cv::Mat BarrelCorrection(cv::Mat matSrcImage);
@@ -50,10 +52,9 @@ public:
 
     // CPU»û±ä½ÃÕýYUV
     cv::Mat BarrelCorrection_CPU(cv::Mat& matSrcImage);
-    void BarrelCorrection_CPU_2(std::string strFilePath);
 
     void imreadNV12(unsigned char* pu8Y, unsigned char* pu8UV, int nWidth, int nHeight, char *pchFilePath);
-    void imshowNV12(unsigned char* pu8Y, unsigned char* pu8UV, int nWidth, int nHeight);
+    cv::Mat imshowNV12(unsigned char* pu8Y, unsigned char* pu8UV, int nWidth, int nHeight);
     void imwriteNV12(unsigned char* pu8Y, unsigned char* pu8UV, int nWidth, int nHeight, char *pchFilePath);
     void Mat2NV12(cv::Mat matSrcImage, unsigned char *pu8Y, unsigned char *pu8UV, int nWidth, int nHeight);
 

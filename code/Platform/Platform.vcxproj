@@ -133,6 +133,7 @@
     <ClCompile Include="BarrelCorrection_CPU\module\BarrelCorrection\BC_1920_1080.c" />
     <ClCompile Include="c_barrel_correction.cpp" />
     <ClCompile Include="c_show_thread.cpp" />
+    <ClCompile Include="Utils\c_timer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="q_image_show.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="BarrelCorrection_CPU\include\openblas\lapacke_utils.h" />
     <ClInclude Include="BarrelCorrection_CPU\include\openblas\openblas_config.h" />
     <ClInclude Include="c_barrel_correction.h" />
+    <ClInclude Include="Utils\c_timer.h" />
     <ClInclude Include="debug_log.h" />
     <ClInclude Include="Utils\c_transform.h" />
   </ItemGroup>

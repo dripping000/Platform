@@ -1,4 +1,4 @@
-#define PC
+#define WIN
 //#define ARM
 
 // Header file
@@ -151,7 +151,7 @@ pthread_cond_t BCCond_mainB = PTHREAD_COND_INITIALIZER;
 #endif
 
 
-#ifdef PC
+#ifdef WIN
 void bc_convertB()
 {
     int j;
@@ -2313,8 +2313,8 @@ int BarrelCorrectProcessB(TPlatformObject* ptPlatformObject, TBCObject* ptBCObje
 	ISPprintLog("[[[[[MAIN ALL END]]]]]\n");
 #endif
 
-// Process(PC)
-#ifdef PC
+// Process(WIN)
+#ifdef WIN
     bc_convertB();
 #endif
 
@@ -2486,7 +2486,7 @@ int BarrelCorrectCloseB(TPlatformObject* ptPlatformObject, TBCObject* ptBCObject
 		return -1;
 	}
 
-    #endif
+       #endif
 #endif
 
 	free(BCcoordYYB);

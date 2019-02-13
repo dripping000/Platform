@@ -11,8 +11,8 @@
 CBarrelCorrection::CBarrelCorrection()
 {
     // BarrelCorrection
-    this->m_nBaseK0 = 1600;
-    this->m_nBaseK1 = 160;
+    this->m_nBaseK0 = 1000;
+    this->m_nBaseK1 = 100;
 
     this->m_fK0 = 300.0;
     this->m_fK1 = 0.0;
@@ -36,19 +36,15 @@ CBarrelCorrection::~CBarrelCorrection()
 {
 }
 
-void CBarrelCorrection::SetK0(float K0)
+void CBarrelCorrection::SetK0K1(float K0, float K1)
 {
     this->m_fK0 = K0;
+    this->m_fK1 = K1;
 }
 
 float CBarrelCorrection::GetK0()
 {
     return this->m_fK0;
-}
-
-void CBarrelCorrection::SetK1(float K1)
-{
-    this->m_fK1 = K1;
 }
 
 float CBarrelCorrection::GetK1()
@@ -266,159 +262,10 @@ cv::Mat CBarrelCorrection::BarrelCorrection_CPU(cv::Mat& matSrcImage)
     int SrcWidth = matSrcImage.cols;
     int SrcHeight = matSrcImage.rows;
 
-    unsigned char* pYUVBuf = NULL;
-    pYUVBuf = (unsigned char*)malloc(SrcWidth * SrcHeight * 3 / 2 * sizeof(unsigned char));
-
-    unsigned char* pYBuf = NULL;
-    unsigned char* pUVBuf = NULL;
-    pYBuf = (unsigned char*)malloc(SrcWidth * SrcHeight * sizeof(unsigned char));
-    pUVBuf = (unsigned char*)malloc(SrcWidth * SrcHeight / 2 * sizeof(unsigned char));
-
-    cv::Mat yuvImg;
-    cvtColor(matSrcImage, yuvImg, CV_BGR2YUV_I420);
-    memcpy(pYUVBuf, yuvImg.data, SrcWidth * SrcHeight * 3 / 2 * sizeof(unsigned char));
-
-    // YUV--->NV12
-    unsigned char* pYUVBufTmp = NULL;
-    unsigned char* pYBufTmp = NULL;
-    unsigned char* pUVBufTmp = NULL;
-
-    pYUVBufTmp = pYUVBuf;
-    pYBufTmp = pYBuf;
-    pUVBufTmp = pUVBuf;
-
-    for (int i = 0; i < SrcWidth * SrcHeight * 5 / 4; i++)
-    {
-        if (i < SrcWidth * SrcHeight)
-        {
-            *pYBufTmp = *pYUVBufTmp;
-            pYBufTmp++;
-            pYUVBufTmp++;
-        }
-        else
-        {
-            *pUVBufTmp = *pYUVBufTmp;
-            pUVBufTmp++;
-            *pUVBufTmp = *(pYUVBufTmp + SrcWidth * SrcHeight / 4);
-            pUVBufTmp++;
-
-            pYUVBufTmp++;
-        }
-    }
-    ////////////////////////////////////////////////////////////////////////////////
-    int ResultWidth = 1920;
-    int ResultHeight = 1080;    
-
-    unsigned char* pYBufResult = NULL;
-    unsigned char* pUVBufResult = NULL;
-    pYBufResult = (unsigned char*)malloc(ResultWidth * ResultHeight * sizeof(unsigned char));
-    pUVBufResult = (unsigned char*)malloc(ResultWidth * ResultHeight / 2 * sizeof(unsigned char));
-
-    unsigned char* pYUVBufResult = NULL;
-    pYUVBufResult = (unsigned char*)malloc(ResultWidth * ResultHeight * 3 / 2 * sizeof(unsigned char));
-
-    // 参数初始化
-    int ret;
-
-    TPlatformObject tPlatformObject;
-    TBarrelCorrectionObject tBarrelCorrectionObject;
-    TBarrelCorrectionOpen tBarrelCorrectionOpen;
-
-    tBarrelCorrectionOpen.flag = 0;   // 只进行畸变校正
-    tBarrelCorrectionOpen.tBCOpen.u32InputWidth = SrcWidth;
-    tBarrelCorrectionOpen.tBCOpen.u32InputHeight = SrcHeight;
-    tBarrelCorrectionOpen.tBCOpen.u32OutputWidth = ResultWidth;
-    tBarrelCorrectionOpen.tBCOpen.u32OutputHeight = ResultHeight;
-
-    tBarrelCorrectionOpen.tBC_VSOpen.u32InputWidth = SrcWidth;
-    tBarrelCorrectionOpen.tBC_VSOpen.u32InputHeight = SrcHeight;
-    tBarrelCorrectionOpen.tBC_VSOpen.u32OutputWidth = ResultWidth;
-    tBarrelCorrectionOpen.tBC_VSOpen.u32OutputHeight = ResultHeight;
-
-    tBarrelCorrectionOpen.tBCOpen.flagROIMode = 0;
-    tBarrelCorrectionOpen.tBCOpen.f32w = 0.8;
-    tBarrelCorrectionOpen.tBCOpen.f32h = 0.6;
-    tBarrelCorrectionOpen.tBCOpen.f32x0 = 0;
-    tBarrelCorrectionOpen.tBCOpen.f32y0 = 0;
-
-    tBarrelCorrectionOpen.tBCOpen.u32InputPitchY = 0; //
-    tBarrelCorrectionOpen.tBCOpen.u32InputPitchUV = 0; // 
-
-    tBarrelCorrectionOpen.tBCOpen.u32Ratio1 = 500; //
-    tBarrelCorrectionOpen.tBCOpen.u32Ratio2 = 0; // 
-
-    TISPImageInfo tISPImageInfoInput;
-    TISPImageInfo tISPImageInfoOutput;
-
-    tISPImageInfoInput.tImageBuffer[0].pu8ImageDataY = pYBuf;
-    tISPImageInfoInput.tImageBuffer[0].pu8ImageDataU = pUVBuf;
-
-    tISPImageInfoOutput.tImageBuffer[0].pu8ImageDataY = pYBufResult;
-    tISPImageInfoOutput.tImageBuffer[0].pu8ImageDataU = pUVBufResult;
-
-
-    ret = BarrelCorrectionOpen(&tPlatformObject, &tBarrelCorrectionObject, &tBarrelCorrectionOpen);
-
-    ret = BarrelCorrectionProcess(&tPlatformObject, &tBarrelCorrectionObject,
-        &tISPImageInfoInput, &tISPImageInfoOutput);
-
-    ret = BarrelCorrectionClose(&tPlatformObject, &tBarrelCorrectionObject);
-
-    // NV12--->YUV
-    pYUVBufTmp = pYUVBufResult;
-    pYBufTmp = tISPImageInfoOutput.tImageBuffer[0].pu8ImageDataY;
-    pUVBufTmp = tISPImageInfoOutput.tImageBuffer[0].pu8ImageDataU;
-
-    for (int i = 0; i < ResultWidth * ResultHeight * 5 / 4; i++)
-    {
-        if (i < ResultWidth * ResultHeight)
-        {
-            *pYUVBufTmp = *pYBufTmp;
-            pYBufTmp++;
-            pYUVBufTmp++;
-        }
-        else
-        {
-            *pYUVBufTmp = *pUVBufTmp;
-            pUVBufTmp++;
-            *(pYUVBufTmp + ResultWidth * ResultHeight / 4) = *pUVBufTmp;
-            pUVBufTmp++;
-
-            pYUVBufTmp++;
-        }
-    }
-
-    cv::Mat yuvImgResult;
-    yuvImgResult.create(ResultHeight * 3 / 2, ResultWidth, CV_8UC1);
-    memcpy(yuvImgResult.data, pYUVBufResult, ResultWidth * ResultHeight * 3 / 2 * sizeof(unsigned char));
-
-    cv::Mat rgbImgResult;
-    cv::cvtColor(yuvImgResult, rgbImgResult, CV_YUV2BGR_I420);
-
-    free(pYUVBuf);
-    free(pYBuf);
-    free(pUVBuf);
-    pYUVBuf = NULL;
-    pYBuf = NULL;
-    pUVBuf = NULL;
-
-    free(pYUVBufResult);
-    free(pYBufResult);
-    free(pUVBufResult);
-    pYUVBufResult = NULL;
-    pYBufResult = NULL;
-    pUVBufResult = NULL;
-
-    return rgbImgResult;    
-}
-
-
-void CBarrelCorrection::BarrelCorrection_CPU_2(std::string strFilePath)
-{
-    int inputWidth = 2048;
-    int inputHeight = 1536;
-    int inputPitchY = 2048;
-    int inputPitchUV = 2048;
+    int inputWidth = SrcWidth;
+    int inputHeight = SrcHeight;
+    int inputPitchY = SrcWidth;
+    int inputPitchUV = SrcWidth;
 
     int outputWidth = 1920;
     int outputHeight = 1080;
@@ -434,22 +281,20 @@ void CBarrelCorrection::BarrelCorrection_CPU_2(std::string strFilePath)
         printf("malloc failed!!!\n");
     }
 
-
     // 生成300W yuv图像
-    cv::Mat matSrcImageTmp = cv::imread("./Resource/1543555832_491642.jpg");
-    cv::resize(matSrcImageTmp, matSrcImageTmp, cv::Size(inputWidth, inputHeight));
-
-    Mat2NV12(matSrcImageTmp, pInputBuffer, pInputBuffer + inputPitchY * inputHeight, inputWidth, inputHeight);
+    Mat2NV12(matSrcImage, pInputBuffer, pInputBuffer + inputPitchY * inputHeight, inputWidth, inputHeight);
     imshowNV12(pInputBuffer, pInputBuffer + inputPitchY * inputHeight, inputWidth, inputHeight);
     imwriteNV12(pInputBuffer, pInputBuffer + inputPitchY * inputHeight, inputWidth, inputHeight, "./Resource/srcYUVN12.yuv");
 
-    void* pAlgHandle = NULL;
+
     EMISPAlgType emISPAlgType = BARRELCORRECTION;
     TISPVersionInfo tISPVersionInfo;
+    void* pAlgHandle = NULL;
     void* ptOpen = NULL;        
 
     TBarrelCorrectionOpen tBarrelCorrectionOpen;
 
+    tBarrelCorrectionOpen.flag = 0;
     tBarrelCorrectionOpen.tBCOpen.emFormat = IMGALG_NV12;
     tBarrelCorrectionOpen.tBCOpen.u32InputWidth = inputWidth;
     tBarrelCorrectionOpen.tBCOpen.u32InputHeight = inputHeight;
@@ -458,9 +303,8 @@ void CBarrelCorrection::BarrelCorrection_CPU_2(std::string strFilePath)
     tBarrelCorrectionOpen.tBCOpen.u32OutputWidth = outputWidth;
     tBarrelCorrectionOpen.tBCOpen.u32OutputHeight = outputHeight;
 
-    tBarrelCorrectionOpen.tBCOpen.u32Ratio1 = 1420;
-    tBarrelCorrectionOpen.tBCOpen.u32Ratio2 = 130;
-    tBarrelCorrectionOpen.flag = 0;
+    tBarrelCorrectionOpen.tBCOpen.u32Ratio1 = int(this->m_fK0 + this->m_nBaseK0);
+    tBarrelCorrectionOpen.tBCOpen.u32Ratio2 = int(this->m_fK1 + this->m_nBaseK1);
     //////////////////////////////////////////////////////////////////////////
     tBarrelCorrectionOpen.tBCOpen.flagROIMode = 0;
     tBarrelCorrectionOpen.tBCOpen.f32w = 0.8;
@@ -468,15 +312,15 @@ void CBarrelCorrection::BarrelCorrection_CPU_2(std::string strFilePath)
     tBarrelCorrectionOpen.tBCOpen.f32x0 = 0;
     tBarrelCorrectionOpen.tBCOpen.f32y0 = 0;
     //////////////////////////////////////////////////////////////////////////
-
     ptOpen = (void*)(&tBarrelCorrectionOpen);
+        
 
     if (ISPVideoAlgInit() != SUCCESS_GPUALG)
     {
         printf("init error!\n");
         free(pInputBuffer);
         free(pOutputBuffer);
-        return;
+        return matSrcImage;
     }
 
     GetISPVersionInfo(emISPAlgType, &tISPVersionInfo);
@@ -488,7 +332,7 @@ void CBarrelCorrection::BarrelCorrection_CPU_2(std::string strFilePath)
         ISPVideoAlgRelease();
         free(pInputBuffer);
         free(pOutputBuffer);
-        return;
+        return matSrcImage;
     }
 
     TISPImageInfo tInputISPImageInfo;
@@ -512,9 +356,9 @@ void CBarrelCorrection::BarrelCorrection_CPU_2(std::string strFilePath)
 
 
     printf("=========>begin to fread!\n");
-    //fread(pInputBuffer, 1, inputPitchY * inputHeight * 3 / 2, pfInputFileOpen);
     imreadNV12(pInputBuffer, pInputBuffer + inputPitchY * inputHeight, inputPitchY, inputHeight, "./Resource/srcYUVN12.yuv");
     imshowNV12(pInputBuffer, pInputBuffer + inputPitchY * inputHeight, inputWidth, inputHeight);    
+
 
     printf("=========>begin to process!\n");
     if (ISPVideoAlgProcess(pAlgHandle, emISPAlgType, &tInputISPImageInfo, &tOutputISPImgeInfo) != SUCCESS_GPUALG)
@@ -524,20 +368,26 @@ void CBarrelCorrection::BarrelCorrection_CPU_2(std::string strFilePath)
         ISPVideoAlgRelease();
         free(pInputBuffer);
         free(pOutputBuffer);
-        return;
+        return matSrcImage;
     }
-
-    // 生产YUV文件
-    imwriteNV12(tOutputISPImgeInfo.tImageBuffer[0].pu8ImageDataY, tOutputISPImgeInfo.tImageBuffer[0].pu8ImageDataU, 
-        tOutputISPImgeInfo.tImageBuffer[0].u32Width, tOutputISPImgeInfo.tImageBuffer[0].u32Height,
-        "./Resource/tmp.yuv");
 
     printf("=========>begin to close!\n");
     ISPVideoAlgClose(pAlgHandle, emISPAlgType);
     ISPVideoAlgRelease();
 
+
+    // 生产YUV文件
+    imwriteNV12(tOutputISPImgeInfo.tImageBuffer[0].pu8ImageDataY, tOutputISPImgeInfo.tImageBuffer[0].pu8ImageDataU, 
+        tOutputISPImgeInfo.tImageBuffer[0].u32Width, tOutputISPImgeInfo.tImageBuffer[0].u32Height,
+        "./Resource/tmp.yuv");    
+
+    cv::Mat matResultImage = imshowNV12(pOutputBuffer, pOutputBuffer + outputPitchY * outputHeight, outputWidth, outputHeight);
+
+    // 释放资源
     free(pInputBuffer);
     free(pOutputBuffer);
+
+    return matResultImage;
 }
 
 
@@ -557,7 +407,7 @@ void CBarrelCorrection::imreadNV12(unsigned char* pu8Y, unsigned char* pu8UV, in
 }
 
 
-void CBarrelCorrection::imshowNV12(unsigned char* pu8Y, unsigned char* pu8UV, int nWidth, int nHeight)
+cv::Mat CBarrelCorrection::imshowNV12(unsigned char* pu8Y, unsigned char* pu8UV, int nWidth, int nHeight)
 {
     // NV12--->YUV
     unsigned char* pYUVBufResult = NULL;
@@ -607,6 +457,8 @@ void CBarrelCorrection::imshowNV12(unsigned char* pu8Y, unsigned char* pu8UV, in
     pYUVBufTmp = NULL;
     pYBufTmp = NULL;
     pUVBufTmp = NULL;
+
+    return rgbImgResult;
 }                                           
 
 

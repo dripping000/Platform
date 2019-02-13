@@ -50,9 +50,7 @@ void MainWindow::ValueChanged()
     int BC_nK0 = ui.BC_nK0_hs->value();
     int BC_nK1 = ui.BC_nK1_hs->value();
 
-
-    m_cBarrelCorrection.SetK0(BC_nK0);
-    m_cBarrelCorrection.SetK1(BC_nK1);
+    m_cBarrelCorrection.SetK0K1(BC_nK0, BC_nK1);
 
     this->BarrelCorrectionTest();
 }
@@ -74,13 +72,16 @@ void MainWindow::Init()
 
 void MainWindow::Test()
 {
-    
+    const int64 start = cv::getTickCount();
+
+    double duration = (cv::getTickCount() - start) / cv::getTickFrequency();
+    cout << "time: " << duration << endl;
 }
 
 
 void MainWindow::BarrelCorrectionTest()
 {
-#if 1
+#if 0
     // 对话框获取文件路径
     string strFileName;
     QString qstrFileName = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("请选择文件"));
@@ -93,8 +94,10 @@ void MainWindow::BarrelCorrectionTest()
 
     // 显示原始图像
     cv::Mat matSrcImage = cv::imread(strFileName);
+#else
+    cv::Mat matSrcImage = cv::imread("./Resource/1543555832_491642.jpg");
 #endif
-    //cv::Mat matSrcImage = cv::imread("./Resource/2018122409130887.jpeg");
+    
     if (matSrcImage.empty())
     {
         cout << "Could not load matSrcImage!" << endl;
@@ -119,10 +122,8 @@ void MainWindow::BarrelCorrectionTest()
     cv::resize(matSrcImage, matSrcImageShow, cv::Size(SrcWidth, SrcHeight));
     cv::imshow("matSrcImageShow", matSrcImageShow);
 
-    this->m_cBarrelCorrection.BarrelCorrection_CPU_2("");
-
-    cv::Mat rgbImgResult;
-    rgbImgResult = this->m_cBarrelCorrection.BarrelCorrection_CPU(matSrcImageShow);
+    cv::Mat rgbImgResult;    
+    rgbImgResult = this->m_cBarrelCorrection.BarrelCorrection_CPU(matSrcImageShow);    
     cv::imshow("rgbimg", rgbImgResult);
 #endif
 

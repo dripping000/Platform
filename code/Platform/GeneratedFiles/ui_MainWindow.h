@@ -47,10 +47,10 @@ public:
     QGridLayout *gridLayout;
     QLabel *label_2;
     QSlider *BC_nK0_hs;
-    QLineEdit *BC_nK0_le;
     QLabel *label_3;
     QSlider *BC_nK1_hs;
     QLineEdit *BC_nK1_le;
+    QLineEdit *BC_nK0_le;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -117,20 +117,10 @@ public:
         BC_nK0_hs = new QSlider(centralWidget);
         BC_nK0_hs->setObjectName(QStringLiteral("BC_nK0_hs"));
         BC_nK0_hs->setMaximum(800);
+        BC_nK0_hs->setPageStep(2);
         BC_nK0_hs->setOrientation(Qt::Horizontal);
 
         gridLayout->addWidget(BC_nK0_hs, 0, 1, 1, 1);
-
-        BC_nK0_le = new QLineEdit(centralWidget);
-        BC_nK0_le->setObjectName(QStringLiteral("BC_nK0_le"));
-        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(BC_nK0_le->sizePolicy().hasHeightForWidth());
-        BC_nK0_le->setSizePolicy(sizePolicy);
-        BC_nK0_le->setReadOnly(false);
-
-        gridLayout->addWidget(BC_nK0_le, 0, 2, 1, 1);
 
         label_3 = new QLabel(centralWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
@@ -140,17 +130,29 @@ public:
         BC_nK1_hs = new QSlider(centralWidget);
         BC_nK1_hs->setObjectName(QStringLiteral("BC_nK1_hs"));
         BC_nK1_hs->setMaximum(800);
+        BC_nK1_hs->setPageStep(2);
         BC_nK1_hs->setOrientation(Qt::Horizontal);
 
         gridLayout->addWidget(BC_nK1_hs, 1, 1, 1, 1);
 
         BC_nK1_le = new QLineEdit(centralWidget);
         BC_nK1_le->setObjectName(QStringLiteral("BC_nK1_le"));
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(BC_nK1_le->sizePolicy().hasHeightForWidth());
         BC_nK1_le->setSizePolicy(sizePolicy);
         BC_nK1_le->setReadOnly(false);
 
         gridLayout->addWidget(BC_nK1_le, 1, 2, 1, 1);
+
+        BC_nK0_le = new QLineEdit(centralWidget);
+        BC_nK0_le->setObjectName(QStringLiteral("BC_nK0_le"));
+        sizePolicy.setHeightForWidth(BC_nK0_le->sizePolicy().hasHeightForWidth());
+        BC_nK0_le->setSizePolicy(sizePolicy);
+        BC_nK0_le->setReadOnly(false);
+
+        gridLayout->addWidget(BC_nK0_le, 0, 2, 1, 1);
 
 
         verticalLayout->addLayout(gridLayout);
